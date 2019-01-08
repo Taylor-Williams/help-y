@@ -1,4 +1,5 @@
 class Appointment < ApplicationRecord
-    belongs_to :user
-    belongs_to :volunteer
+    belongs_to :post
+    has_many :volunteers
+    has_many :users, through: :volunteers
 end
