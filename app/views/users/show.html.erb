@@ -1,6 +1,7 @@
 <% if @user.id == current_user %>
   <h3>Your Account</h3>
   <%= render "form" %>
+  <%= link_to "Create Post", new_post_path %>
 <% else %>
   <p><%= "User's name: #{@user.name}" if @user.name %></p>
   <p><%= "email: #{@user.email}" if @user.email %></p>
