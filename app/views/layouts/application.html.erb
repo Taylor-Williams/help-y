@@ -18,6 +18,7 @@
           <%= link_to "Log out", logout_path, method: 'post', class: "navbar-brand"%>
         <% else %>
           <%= link_to "Sign in with Github", '/auth/github', class: "navbar-brand" %>
+          <%= link_to "Log in", root_path, class: "navbar-brand" %>
           <%= link_to "Create a new account", new_user_path, class: "navbar-brand" %>
         <% end %>
         <%= link_to 'All posts', posts_path, class: "navbar-brand" %>

@@ -6,7 +6,14 @@ class StaticController < ApplicationController
   end
 
   def login
-    
+    @user = User.find_by(email: params[:email])
+    if @user && @user.authenticate(params[:password])
+      session[:user_id] = @user.id
+      redirect_to @user
+    else
+      flash[:error] = "email and/or password was incorrect"
+      render '/'
+    end
   end
 
   def logout
