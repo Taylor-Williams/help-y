@@ -4,10 +4,11 @@ class UsersController < ApplicationController
     def create
       @user = User.create(user_params)
       if @user.valid?
+        flash[:success] = "Successfully created profile"
         session[:user_id] = @user.id
         redirect_to user_path(@user)
       else
-        @errors = @user.errors.messages
+        flash[:error] = @user.errors.full_messages.join(", ")
         render :new
       end
     end
@@ -33,7 +34,8 @@ class UsersController < ApplicationController
     def update
       @user = User.find(params[:id])
       if @user.update(user_params)
-         redirect_to @user
+        flash[:success] = "Successfully edited profile"
+        redirect_to @user
       else
          flash[:error] = @user.errors.full_messages.join(", ")
          render :edit
