@@ -3,9 +3,9 @@
   <%= render "form" %>
   <%= link_to "Create Post", new_post_path %>
 <% else %>
-  <p><%= "User's name: #{@user.name}" if @user.name %></p>
-  <p><%= "email: #{@user.email}" if @user.email %></p>
-  <p><%= "height: #{@user.height}" if @user.height %></p>
+  <p><%= "User's name: #{@user.name}" %></p>
+  <p><%= "email: #{@user.email}" %></p>
+  <p><%= "height: #{@user.height}" if !@user.height.empty? %></p>
   <p><%= "age: #{@user.age}" if @user.age %></p>
-  <p><%= "bio: #{@user.bio}" if @user.bio %></p>
+  <p><%= "bio: #{@user.bio}" if !@user.bio.empty? %></p>
 <% end %>

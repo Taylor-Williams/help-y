@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-    before_action :require_user_authentication, except: [:show]
+    before_action :require_user_authentication, except: [:create, :show]
     before_action :require_login, only: [:show]
   
     def create
@@ -10,7 +10,7 @@ class UsersController < ApplicationController
         redirect_to user_path(@user)
       else
         flash[:error] = @user.errors.full_messages.join(", ")
-        render :new
+        render 'static/signup'
       end
     end
   

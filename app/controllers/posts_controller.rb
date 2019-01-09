@@ -2,12 +2,13 @@ class PostsController < ApplicationController
   before_action :require_login, except:[:index, :show]
 
   def new
-    @post = post.new
+    @post = Post.new
   end
 
   def create
-    @post = Post.create(post_params)
-    if @post.valid?
+    @post = Post.new(post_params)
+    @post.user_id = session[:user_id]
+    if @post.save
       flash[:success] = "Successfully created Post"
       render :show
     else
