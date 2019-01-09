@@ -1,0 +1,6 @@
+<p><%= @user.name %></p>
+<p><%= @user.email %></p>
+<p><%= @user.height %></p>
+<p><%= @user.age %></p>
+<p><%= @user.bio %></p>
+<%= link_to "Edit Profile", edit_user_path(@user) if @user.id == current_user %>
