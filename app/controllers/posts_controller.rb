@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :require_user_authentication, except: [:new, :create]
+  before_action :require_login
 
   def new
     @post = post.new
