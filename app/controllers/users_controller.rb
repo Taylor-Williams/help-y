@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-    before_action :require_user_authentication, except: [:create]
+    before_action :require_user_authentication, except: [:show]
+    before_action :require_login, only: [:show]
   
     def create
       @user = User.create(user_params)
@@ -11,10 +12,6 @@ class UsersController < ApplicationController
         flash[:error] = @user.errors.full_messages.join(", ")
         render :new
       end
-    end
-
-    def index
-      @users = Users.new
     end
   
     def show

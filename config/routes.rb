@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   post 'logout' => 'static#logout', as: "logout"
   get 'signup' => 'static#signup', as: "new_user"
   get 'auth/github/callback', to: 'sessions#create'
-  resources :users, except: [:new, :edit]
+  resources :users, except: [:new, :edit, :index]
   resources :posts
   get 'users/new' => 'static#signup'
 end
