@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :require_login
+  before_action :require_login, except:[:index, :show]
 
   def new
     @post = post.new
@@ -27,7 +27,7 @@ class PostsController < ApplicationController
   def destroy
     if Post.find(params[:id])
       post.destroy(params[:id])
-      flash[:success] = "Successfully Deleted Post"
+      flash[:success] = "Successfully deleted Post"
     else
       flash[:error] = "Invalid Post"
     end
@@ -37,7 +37,7 @@ class PostsController < ApplicationController
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-      flash[:success] = "Successfully created Post"
+      flash[:success] = "Successfully edited Post"
     else
       flash[:error] = @post.errors.full_messages.join(", ")
     end
