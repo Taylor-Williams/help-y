@@ -1,6 +1,10 @@
 class StaticController < ApplicationController
   before_action :require_login, only:[:logout]
 
+  def home
+
+  end
+
   def login
     
   end
