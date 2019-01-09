@@ -1,6 +1,0 @@
-<% if logged_in? %>
-  <%= link_to "Your account", user_path(current_user) %>
-<% else %>
-  <%= link_to "Sign in with Github", '/auth/github' %>
-  <%= link_to "Create a new account", new_user_path %>
-<% end %>
