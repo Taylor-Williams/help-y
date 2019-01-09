@@ -21,7 +21,8 @@ class UsersController < ApplicationController
     def destroy
       User.destroy(params[:id])
       session.destroy(:user_id)
-      redirect_to root_path
+      flash[:success] = "Successfully deleted profile"
+      render '/'
     end
   
     def update
