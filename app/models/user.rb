@@ -5,6 +5,12 @@ class User < ApplicationRecord
   has_many :comments
   has_many :appointments, through: :volunteers
 
+  validates :name, :email, presence: true
+  validates :email, uniqueness: true
+  validates :age, numericality: {only_integer: true}
+  validates :height, format: {with: /\d+/, message: 'must contain at least one digit'}
+
+
   def self.find_or_create_from_auth_hash(auth_hash)
     self.find_or_create_by(email: auth_hash['info']['email']) do |u|
       u.name = auth_hash['info']['name']
