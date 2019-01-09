@@ -1,10 +1,5 @@
 class UsersController < ApplicationController
-    has_secure_password
-    before_action :require_user_authentication, except: [:new, :create]
-
-    def new
-      @user = User.new
-    end
+    before_action :require_user_authentication, except: [:create]
   
     def create
       @user = User.create(user_params)
@@ -48,6 +43,6 @@ class UsersController < ApplicationController
     private
   
     def user_params
-        params.require(:user).permit(:name, :password, :bio, :email, :height, :age)
+        params.require(:user).permit(:name, :password, :password_confirmation, :bio, :email, :height, :age)
     end
 end
