@@ -17,7 +17,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = posts.new
+    @posts = Post.all
   end
 
   def show
@@ -25,9 +25,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post.destroy(params[:id])
-    session.destroy(:post_id)
-    redirect_to root_path
+    if Post.find(params[:id])
+      post.destroy(params[:id])
+      flash[:success] = "Successfully Deleted Post"
+    else
+      flash[:error] = "Invalid Post"
+    end
+    render '/'
   end
 
   def edit
