@@ -8,7 +8,8 @@ class User < ApplicationRecord
   validates :name, :email, presence: true
   validates :email, uniqueness: true
   validates :age, numericality: {only_integer: true}, allow_blank: true
-  validates :height, format: {with: /\d+/, message: 'must contain at least one digit'}, allow_blank: true
+  validates :height, format: {with: /\d+/, message: 'must contain at least one digit.'}, allow_blank: true
+  validates :bio, length: {maximum: 1000}
 
 
   def self.find_or_create_from_auth_hash(auth_hash)

@@ -3,4 +3,7 @@ class Post < ApplicationRecord
     has_many :comments
     has_many :appointments
     has_many :volunteers, through: :appointments
+
+    validates :title, presence: true
+    validates :content, length: {in: 10..1000, message: "keep your post content between 10 and 1000 characters."}
 end
