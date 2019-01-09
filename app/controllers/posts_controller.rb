@@ -8,10 +8,10 @@ class PostsController < ApplicationController
   def create
     @post = Post.create(post_params)
     if @post.valid?
-      session[:post_id] = @post.id
-      redirect_to post_path(@post)
+      flash[:success] = "Successfully created Post"
+      render :show
     else
-      @errors = @post.errors.messages
+      flash[:error] = @post.errors.full_messages.join(", ")
       render :new
     end
   end
@@ -34,18 +34,14 @@ class PostsController < ApplicationController
     render '/'
   end
 
-  def edit
-    @post = Post.find(params[:id])
-  end
-
   def update
     @post = Post.find(params[:id])
     if @post.update(post_params)
-       redirect_to @post
+      flash[:success] = "Successfully created Post"
     else
-       flash[:error] = @post.errors.full_messages.join(", ")
-       render :edit
+      flash[:error] = @post.errors.full_messages.join(", ")
     end
+    render :show
   end
 
   private
