@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
     before_action :require_user_authentication, except: [:create, :show]
-    before_action :require_login, only: [:show]
   
     def create
       @user = User.create(user_params)

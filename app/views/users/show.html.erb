@@ -1,4 +1,4 @@
-<% if @user.id == current_user %>
+<% if is_current_user?(@user) %>
   <h3>Your Account</h3>
   <%= render "form" %>
   <%= link_to "Create Post", new_post_path %>
@@ -8,4 +8,9 @@
   <p><%= "height: #{@user.height}" if !@user.height.empty? %></p>
   <p><%= "age: #{@user.age}" if @user.age %></p>
   <p><%= "bio: #{@user.bio}" if !@user.bio.empty? %></p>
+  <br>
+<% end %>
+<% if @user.posts.any? %>
+  <p><%= is_current_user?(@user) ? "your" : "#{@user.name}'s"%> posts:</p>
+  <%= render @user.posts %>
 <% end %>
