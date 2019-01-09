@@ -1,6 +1,10 @@
-<p><%= @user.name %></p>
-<p><%= @user.email %></p>
-<p><%= @user.height %></p>
-<p><%= @user.age %></p>
-<p><%= @user.bio %></p>
-<%= link_to "Edit Profile", edit_user_path(@user) if @user.id == current_user %>
+<% if @user.id == current_user %>
+  <h3>Your Account</h3>
+  <%= render "form" %>
+<% else %>
+  <p><%= "User's name: #{@user.name}" if @user.name %></p>
+  <p><%= "email: #{@user.email}" if @user.email %></p>
+  <p><%= "height: #{@user.height}" if @user.height %></p>
+  <p><%= "age: #{@user.age}" if @user.age %></p>
+  <p><%= "bio: #{@user.bio}" if @user.bio %></p>
+<% end %>
