@@ -12,7 +12,7 @@ class StaticController < ApplicationController
       redirect_to @user
     else
       flash[:error] = "email and/or password was incorrect"
-      render '/'
+      redirect_to root_path
     end
   end
 
