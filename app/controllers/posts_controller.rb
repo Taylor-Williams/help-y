@@ -7,10 +7,9 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.user_id = session[:user_id]
+    @post.user_id = helpers.current_user
     if @post.save
-      flash[:success] = "Successfully created Post"
-      render :show
+      redirect_to @post, success: "Successfully created Post"
     else
       flash[:error] = @post.errors.full_messages.join(", ")
       render :new
@@ -29,17 +28,17 @@ class PostsController < ApplicationController
 
   def destroy
     if Post.find(params[:id])
-      post.destroy(params[:id])
+      Post.destroy(params[:id])
       flash[:success] = "Successfully deleted Post"
     else
       flash[:error] = "Invalid Post"
     end
-    render '/'
+    redirect_to home_path
   end
 
   def update
     @post = Post.find(params[:id])
-    if @post.update(post_params)
+    if @post && @post.update(post_params)
       flash[:success] = "Successfully edited Post"
     else
       flash[:error] = @post.errors.full_messages.join(", ")
