@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
       redirect_to comment_path(@comment), :success = "Successfully created commment"
     else
       flash[:error] = @comment.errors.full_messages.join(", ")
-      render :show
+      render "posts/show"
     end
   end
 

@@ -8,4 +8,8 @@ module ApplicationHelper
     session[:user_id] if logged_in?
   end
 
+  def is_current_user?(user)
+    user.id == current_user
+  end
+
 end
