@@ -1,43 +1,43 @@
 class CommentsController < ApplicationController
-  before_action :require_user_authentication, except: [:create, :show]
+  before_action :require_logged_in
   
   def create
-    @user = User.create(user_params)
-    if @user.valid?
-      flash[:success] = "Successfully created profile"
-      session[:user_id] = @user.id
-      redirect_to user_path(@user)
+    @comment = Comment.create(comment_params)
+    if @comment.valid?
+      redirect_to comment_path(@comment), :success = "Successfully created commment"
     else
-      flash[:error] = @user.errors.full_messages.join(", ")
-      render 'static/signup'
+      flash[:error] = @comment.errors.full_messages.join(", ")
+      render :show
     end
   end
 
   def show
-    @user = User.find(params[:id])
+    @comment = Comment.find(params[:id])
   end
 
   def destroy
-    User.destroy(params[:id])
-    session.destroy(:user_id)
-    flash[:success] = "Successfully deleted profile"
-    render '/'
+    comment = Comment.find(params[:id])
+    if comment && comment.user_id == session[user_id]
+      Comment.destroy(params[:id])
+      redirect_to post_path(params[:post_id]), :success = "Successfully deleted commment"
+    else
+      redirect_to user_path(session[:user_id]), :failure = "Cannot delete comment"
+    end
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update(user_params)
-      flash[:success] = "Successfully edited profile"
-      redirect_to @user
+    @comment = Comment.find(params[:id])
+    if @comment.update(comment_params)
+      redirect_to @comment, :success = "Successfully edited commment"
     else
-       flash[:error] = @user.errors.full_messages.join(", ")
+       flash[:error] = @comment.errors.full_messages.join(", ")
        render :edit
     end
   end
 
   private
 
-  def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation, :bio, :email, :height, :age)
+  def comment_params
+      params.require(:comment).permit(:user_id, :post_id, :content)
   end
 end
