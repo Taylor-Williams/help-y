@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'auth/github/callback', to: 'sessions#create'
   resources :users, except: [:new, :edit, :index]
   resources :posts, except: [:edit] do
-    resources :comments, except: [:index, :new, :edit]
+    resources :comments, only: [:create, :update, :destroy]
   end
   get 'users/new' => 'static#signup'
 end

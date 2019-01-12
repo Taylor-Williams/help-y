@@ -1,4 +1,6 @@
-<%= form_for comment do |f| %>
+<%= form_for([@post, comment]) do |f| %>
+  <%= f.hidden_field :user_id, :value => current_user %>
+  <%= f.hidden_field :post_id, :value => @post.id %>
   <%= f.text_area :content, size: "100x10" %>
   <%= f.submit %>
 <% end %>

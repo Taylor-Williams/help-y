@@ -1,6 +1,5 @@
 class Comment < ApplicationRecord
-    belongs_to :post, inverse_of: :posts
-    validates_presence_of :post
+    belongs_to :post
     belongs_to :user
 
     validates :user_id, presence: true

@@ -23,6 +23,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @post.comments.build(user_id: helpers.current_user) #for making new comment
+    @comments = @post.comments
   end
 
   def destroy
@@ -48,6 +50,6 @@ class PostsController < ApplicationController
   private
 
   def post_params
-      params.require(:post).permit(:user_id, :title, :content, comments_attributes: [:post_id, :user_id, :content])
+      params.require(:post).permit(:user_id, :title, :content)
   end
 end

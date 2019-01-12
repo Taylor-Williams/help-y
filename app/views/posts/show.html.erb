@@ -1,10 +1,8 @@
-<% if @post.user.id == current_user %>
+<% if is_current_user?(@post.user) %>
   <%= render 'form' %>
 <% else %>
   <h3><%= @post.title %></h3><br>
   <div><%= @post.content %></div><br>
   <%= link_to "See author's page", user_path(@post.user) %><br>
 <% end %>
-<%= render partial: "comments/comment" collection: @comments %><br>
-<h3>Make a comment:</h3>
-<%= render partial: "comments/form" locals: [comment: @comment] %>
+<%= render partial: "comments/comment", collection: @comments %><br>
