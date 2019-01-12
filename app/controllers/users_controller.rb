@@ -4,12 +4,10 @@ class UsersController < ApplicationController
     def create
       @user = User.create(user_params)
       if @user.valid?
-        flash[:success] = "Successfully created profile"
         session[:user_id] = @user.id
-        redirect_to user_path(@user)
+        redirect_to @user, success: "Successfully created profile"
       else
-        flash[:error] = @user.errors.full_messages.join(", ")
-        render 'static/signup'
+        render 'static/signup', error: @user.errors.full_messages.join(", ")
       end
     end
   
@@ -17,22 +15,19 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
   
-    def destroy
-      User.destroy(params[:id])
-      session.destroy(:user_id)
-      flash[:success] = "Successfully deleted profile"
-      render '/'
-    end
-  
     def update
       @user = User.find(params[:id])
       if @user.update(user_params)
-        flash[:success] = "Successfully edited profile"
-        redirect_to @user
+        redirect_to @user, success: "Successfully edited profile"
       else
-         flash[:error] = @user.errors.full_messages.join(", ")
-         render :edit
+        render :show, error: @user.errors.full_messages.join(", ")
       end
+    end
+
+    def destroy
+      User.destroy(params[:id])
+      session.destroy(:user_id)
+      redirect_to home_path, success: "Successfully deleted profile"
     end
   
     private

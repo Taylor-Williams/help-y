@@ -1,8 +1,7 @@
 class CommentsController < ApplicationController
   
   def create
-    @comment = Comment.create(comment_params)
-    if @comment.valid?
+    if @comment = Comment.create(comment_params)
       flash[:success] = "Successfully created commment"
     else
       flash[:error] = @comment.errors.full_messages.join(", ")
@@ -19,7 +18,6 @@ class CommentsController < ApplicationController
     end
     redirect_to post_path(params[:post_id])
   end
-
 
   def destroy
     comment = Comment.find(params[:id])
