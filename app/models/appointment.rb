@@ -8,4 +8,8 @@ class Appointment < ApplicationRecord
   validates :title, presence: true
   validates :info, length: {in: 1..1000, message: "keep your comment content between 10 and 1000 characters."}
   validates :spots, numericality: {only_integer: true}
+
+  def spots_left
+    spots - volunteers.size
+  end
 end
