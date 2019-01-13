@@ -34,7 +34,7 @@ gem 'omniauth'
 gem 'omniauth-github'
 gem 'dotenv-rails'
 gem 'pry'
-
+gem 'date_validator', '~> 0.8.1'
 gem 'bootstrap-sass'
 
 # Use Capistrano for deployment
