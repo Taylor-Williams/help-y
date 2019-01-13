@@ -5,4 +5,5 @@
   <div><%= @post.content %></div><br>
   <%= link_to "See author's page", user_path(@post.user) %><br>
 <% end %>
+<%= render partial: "appointments/appointment", collection: @appointments %><br>
 <%= render partial: "comments/comment", collection: @comments %><br>

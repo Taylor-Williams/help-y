@@ -21,6 +21,8 @@ class PostsController < ApplicationController
 
   def show
     @post = Post.find(params[:id])
+    @post.appointments.build(user_id: helpers.current_user) #for making new appointment
+    @appointments = @post.appointments
     @post.comments.build(user_id: helpers.current_user) #for making new comment
     @comments = @post.comments
   end
