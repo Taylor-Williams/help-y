@@ -9,9 +9,9 @@ class StaticController < ApplicationController
     @user = User.find_by(email: params[:email])
     if @user && @user.authenticate(params[:password])
       session[:user_id] = @user.id
-      redirect_to @user
+      redirect_to @user, flash: {success: "You are now logged in"}
     else
-      redirect_to root_path, flash: {error: "email and/or password was incorrect"}
+      redirect_to root_path, flash: {danger: "email and/or password was incorrect"}
     end
   end
 

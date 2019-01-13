@@ -11,8 +11,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, flash: {success: "Successfully created Post"}
     else
-      flash[:error] = @post.errors.full_messages.join(", ")
-      render :new
+      render :new, flash: {danger: @post.errors.full_messages.join(", ")}
     end
   end
 
@@ -33,7 +32,7 @@ class PostsController < ApplicationController
     if @post && @post.update(post_params)
       flash[:success] = "Successfully edited Post"
     else
-      flash[:error] = @post.errors.full_messages.join(", ")
+      flash[:danger] = @post.errors.full_messages.join(", ")
     end
     render :show
   end
@@ -44,7 +43,7 @@ class PostsController < ApplicationController
       Post.destroy(params[:id])
       flash[:success] = "Successfully deleted Post"
     else
-      flash[:error] = "Invalid Post to delete"
+      flash[:danger] = "Invalid Post to delete"
     end
     redirect_to posts_path
   end

@@ -9,7 +9,7 @@ class VolunteersController < ApplicationController
       if volunteer.valid?
         flash[:success] = 'successfully signed up to volunteer'
       else
-        flash[:error] = volunteer.errors.full_messages.join(", ")
+        flash[:danger] = volunteer.errors.full_messages.join(", ")
       end
     end
     redirect_to post_path(params[:post_id])
