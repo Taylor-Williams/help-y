@@ -11,7 +11,8 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, flash: {success: "Successfully created Post"}
     else
-      render :new, flash: {error: @post.errors.full_messages.join(", ")}
+      flash[:error] = @post.errors.full_messages.join(", ")
+      render :new
     end
   end
 

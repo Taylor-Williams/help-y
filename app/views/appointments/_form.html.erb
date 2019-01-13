@@ -1,11 +1,20 @@
 <%= form_for([@post, appointment]) do |f| %>
   <%= f.hidden_field :post_id, :value => @post.id %>
+  <%= f.label :title %>
+  <%= f.text_field :title %>
+  <%= f.label :spots %>
+  <%= f.text_field :spots %>
+  <%= f.label :information %>
   <%= f.text_area :info, size: "100x10" %>
-  <%= f.submit %>
-  <script type="text/javascript">
+  <%= f.label :start_date %>
+  <%= f.datetime_select :start_date %>
+  <%= f.label :end_date %>
+  <%= f.datetime_select :end_date %>
+  <%# <%= f.time_zone_select :timezone %>
+  <%# <script type="text/javascript">
     $('.datetimepicker').datetimepicker({});
-  </script>
-  <div class="container">
+  </script> %>
+  <%# <div class="container">
       <div class="row">
           <div class='col-sm-6'>
               <div class="form-group">
@@ -23,6 +32,6 @@
               });
           </script>
       </div>
-  </div>
+  </div> %>
   <%= f.submit %>
 <% end %>

@@ -5,7 +5,7 @@ class Appointment < ApplicationRecord
 
   validates :post_id, presence: true
   validates :title, presence: true
-  validates :info, length: {in: 1..1000, message: "keep your comment content between 10 and 1000 characters."}
+  validates :info, length: {in: 1..1000, message: "keep your comment info between 1 and 1000 characters."}
   validates :spots, numericality: {only_integer: true}
 
   def spots_left

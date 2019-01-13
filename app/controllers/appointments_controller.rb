@@ -1,11 +1,12 @@
 class AppointmentsController < ApplicationController
   def create
-    raise params
-    if @appointment = Appointment.create(appointment_params)
-      redirect_to post_path(params[:post_id]), flash: {success: "Successfully created appointment"}
+    @appointment = Appointment.create(appointment_params)
+    if @appointment.valid? 
+      flash[:success] = "Successfully created appointment"
     else
-      render 'posts/show', flash: {error: @appointment.errors.full_messages.join(", ")}
+      flash[:error] = @appointment.errors.full_messages.join(", ")
     end
+    redirect_to post_path(params[:post_id])
   end
 
   def update
