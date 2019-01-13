@@ -7,3 +7,6 @@
 <% end %>
 <%= render partial: "appointments/appointment", collection: @appointments %><br>
 <%= render partial: "comments/comment", collection: @comments %><br>
+<% if is_current_user?(@post.user) %>
+  <%= link_to 'Delete', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
