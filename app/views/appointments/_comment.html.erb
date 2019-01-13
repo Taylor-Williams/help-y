@@ -1,0 +1,8 @@
+<br>
+<% if is_current_user?(comment.user) %>
+  <%= render partial: "comments/form", locals: {comment: comment} %>
+<% else %>
+  <%= content_tag(:div, class:["post_comment"]) do %>
+    "<%= comment.content %>" comment from <%= comment.user.name %>
+  <% end %>
+<% end %>
