@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
     if @comment = Comment.create(comment_params)
       flash[:success] = "Successfully created comment"
     else
-      flash[:error] = @comment.errors.full_messages.join(", ")
+      flash[:danger] = @comment.errors.full_messages.join(", ")
     end
     redirect_to post_path(params[:post_id])
   end
@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
     if @comment.update(comment_params)
       flash[:success] = "Successfully edited comment"
     else
-      flash[:error] = @comment.errors.full_messages.join(", ")
+      flash[:danger] = @comment.errors.full_messages.join(", ")
     end
     redirect_to post_path(params[:post_id])
   end
@@ -25,7 +25,7 @@ class CommentsController < ApplicationController
       Comment.destroy(params[:id])
       redirect_to post_path(params[:post_id]), flash: {success: "Successfully deleted comment"}
     else
-      redirect_to user_path(session[:user_id]), flash: {failure: "Cannot delete comment"}
+      redirect_to user_path(session[:user_id]), flash: {danger: "Cannot delete comment"}
     end
   end
 

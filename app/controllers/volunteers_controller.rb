@@ -1,4 +1,6 @@
 class VolunteersController < ApplicationController
+  before_action :require_login
+
   def manage
     volunteer = Volunteer.find_by(appointment_id: params[:appointment_id], user_id: params[:user_id])
     if volunteer
