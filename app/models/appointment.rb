@@ -11,4 +11,8 @@ class Appointment < ApplicationRecord
   def spots_left
     spots - volunteers.size
   end
+
+  def display_date(date)
+    date.strftime("%B %-d %Y at %I:%M %P")
+  end
 end
