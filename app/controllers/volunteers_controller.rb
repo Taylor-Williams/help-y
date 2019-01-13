@@ -6,7 +6,7 @@ class VolunteersController < ApplicationController
       flash[:success] = 'successfully un-signed up to volunteer'
     else
       volunteer = Volunteer.create(appointment_id: params[:appointment_id], user_id: params[:user_id])
-      if volunteer
+      if volunteer.valid?
         flash[:success] = 'successfully signed up to volunteer'
       else
         flash[:error] = volunteer.errors.full_messages.join(", ")
