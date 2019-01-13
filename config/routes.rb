@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :users, except: [:new, :edit, :index]
   resources :posts, except: [:edit] do
     resources :comments, only: [:create, :update, :destroy]
+    resources :appointments, only: [:create, :update, :destroy]
   end
   get 'users/new' => 'static#signup'
 end
