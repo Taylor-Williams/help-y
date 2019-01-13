@@ -5,5 +5,5 @@
   <%= f.submit %>
 <% end %>
 <% if comment.id %>
-  <%= button_to 'Delete comment', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= button_to 'Delete Comment', post_comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>

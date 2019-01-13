@@ -11,9 +11,9 @@
     <%= hidden_field_tag 'post_id', @post.id %>
     <% if appointment.volunteer_ids.include?(current_user) %>
       <%= hidden_field_tag "_method", "destroy" %>
-      <%= submit_button "Un-volunteer to help #{@post.user.name}" %>
+      <%= button_tag "Un-volunteer to help #{@post.user.name}" %>
     <% else %>
-      <%= submit_button "Volunteer to help #{@post.user.name}" %>
+      <%= button_tag "Volunteer to help #{@post.user.name}" %>
     <% end %>
   <% end %>
 <% end %>

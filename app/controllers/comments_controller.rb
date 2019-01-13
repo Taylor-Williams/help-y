@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
 
   def destroy
     comment = Comment.find(params[:id])
-    if comment && comment.user_id == session[user_id]
+    if comment && comment.user_id == session[:user_id]
       Comment.destroy(params[:id])
       redirect_to post_path(params[:post_id]), flash: {success: "Successfully deleted comment"}
     else
