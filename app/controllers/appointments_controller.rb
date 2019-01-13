@@ -1,7 +1,8 @@
 class AppointmentsController < ApplicationController
   def create
+    raise params
     if @appointment = Appointment.create(appointment_params)
-      redirect_to post_path(params[:post_id]) success: "Successfully created appointment"
+      redirect_to post_path(params[:post_id]), success: "Successfully created appointment"
     else
       render 'posts/show', error: @appointment.errors.full_messages.join(", ")
     end
@@ -31,6 +32,6 @@ class AppointmentsController < ApplicationController
   private
 
   def appointment_params
-      params.require(:appointment).permit(:user_id, :post_id, :spots, :start_date, :end_date, :info, :title)
+      params.require(:appointment).permit(:post_id, :spots, :start_date, :end_date, :info, :title)
   end
 end

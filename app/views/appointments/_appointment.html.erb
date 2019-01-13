@@ -1,9 +1,9 @@
 <br>
-<% if is_current_user?(appointment.user) %>
+<% if is_current_user?(@post.user) %>
   <%= render partial: "appointments/form", locals: {appointment: appointment} %>
 <% else %>
   <%= content_tag(:div, class:["post_appointment"]) do %>
-    <%= appointment.user.name %> requests <%= appointment.spots %> volunteers from <%= appointment.start_date %> to <%= appointment.end_date %>
+    <%= @post.user.name %> requests <%= appointment.spots %> volunteers from <%= appointment.start_date %> to <%= appointment.end_date %>
     <%= appointment.info %>
     <%= appointment.spots_left %>
   <% end %>
