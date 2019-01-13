@@ -3,8 +3,8 @@
   <%= render partial: "appointments/form", locals: {appointment: appointment} %>
 <% else %>
   <%= content_tag(:div, class:["post_appointment"]) do %>
-    <%= @post.user.name %> requests <%= appointment.spots %> volunteers from <%= appointment.start_date %> to <%= appointment.end_date %>
-    <%= appointment.info %>
-    <%= appointment.spots_left %>
+    <%= @post.user.name %> requests <%= appointment.spots %> volunteers from <%= appointment.start_date %> to <%= appointment.end_date %><br>
+    information: <%= appointment.info %><br>
+    spots left: <%= appointment.spots_left %><br>
   <% end %>
 <% end %>

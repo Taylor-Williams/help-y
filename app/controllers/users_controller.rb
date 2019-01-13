@@ -7,7 +7,7 @@ class UsersController < ApplicationController
         session[:user_id] = @user.id
         redirect_to @user, flash: {success: "Successfully created profile"}
       else
-        render 'static/signup', flash: {error: @user.errors.full_messages.join(", ")}
+        redirect_to new_user_path, flash: {error: @user.errors.full_messages.join(", ")}
       end
     end
   
