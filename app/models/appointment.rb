@@ -19,4 +19,8 @@ class Appointment < ApplicationRecord
   def active?
     (Time.now - end_date).to_i < 0
   end
+
+  def has_user?(user_id)
+    volunteers.any?{|v| v.user_id = user_id}
+  end
 end

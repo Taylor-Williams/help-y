@@ -9,7 +9,7 @@
   <% end %>
   <%= form_tag volunteers_path(appointment.id, current_user) do %>
     <%= hidden_field_tag 'post_id', @post.id %>
-    <% if appointment.volunteer_ids.include?(current_user) %>
+    <% if appointment.has_user?(current_user) %>
       <%= hidden_field_tag "_method", "destroy" %>
       <%= button_tag "Un-volunteer to help #{@post.user.name}" %>
     <% else %>
