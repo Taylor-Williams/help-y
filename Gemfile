@@ -35,10 +35,8 @@ gem 'omniauth-github'
 gem 'dotenv-rails'
 gem 'pry'
 
-gem 'jquery-rails'
 gem 'bootstrap-sass'
-gem 'momentjs-rails', '>= 2.9.0'
-gem 'bootstrap3-datetimepicker-rails', '~> 4.17.47'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
