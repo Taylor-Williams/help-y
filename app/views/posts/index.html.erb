@@ -1,2 +1,2 @@
-<%= link_to "Create Post", new_post_path unless !logged_in? %>
+<%= button_to "Create Post", new_post_path unless !logged_in? %>
 <%= render @posts %>
