@@ -3,6 +3,6 @@
   <%= render partial: "comments/form", locals: {comment: comment} %>
 <% else %>
   <%= content_tag(:div, class:["post_comment"]) do %>
-    "<%= comment.content %>" comment from <%= comment.user.name %>
+    "<%= comment.content %>" comment from <%= link_to comment.user.name, user_path(comment.user) %>
   <% end %>
 <% end %>

@@ -9,6 +9,6 @@ class Appointment < ApplicationRecord
   validates :spots, numericality: {only_integer: true}
 
   def spots_left
-    self.spots - self.volunteers.size
+    spots - volunteers.size
   end
 end
