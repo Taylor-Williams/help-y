@@ -9,9 +9,9 @@ class PostsController < ApplicationController
     @post = Post.new(post_params)
     @post.user_id = helpers.current_user
     if @post.save
-      redirect_to @post, success: "Successfully created Post"
+      redirect_to @post, flash: {success: "Successfully created Post"}
     else
-      render :new, error: @post.errors.full_messages.join(", ")
+      render :new, flash: {error: @post.errors.full_messages.join(", ")}
     end
   end
 

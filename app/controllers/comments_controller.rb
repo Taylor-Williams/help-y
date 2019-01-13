@@ -23,9 +23,9 @@ class CommentsController < ApplicationController
     comment = Comment.find(params[:id])
     if comment && comment.user_id == session[user_id]
       Comment.destroy(params[:id])
-      redirect_to post_path(params[:post_id]), success: "Successfully deleted comment"
+      redirect_to post_path(params[:post_id]), flash: {success: "Successfully deleted comment"}
     else
-      redirect_to user_path(session[:user_id]), failure: "Cannot delete comment"
+      redirect_to user_path(session[:user_id]), flash: {failure: "Cannot delete comment"}
     end
   end
 

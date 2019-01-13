@@ -11,13 +11,13 @@ class StaticController < ApplicationController
       session[:user_id] = @user.id
       redirect_to @user
     else
-      redirect_to root_path error: "email and/or password was incorrect"
+      redirect_to root_path, flash: {error: "email and/or password was incorrect"}
     end
   end
 
   def logout
     session.delete(:user_id) if session[:user_id]
-    redirect_to root_path success: "You have logged out"
+    redirect_to root_path, flash: {success: "You have logged out"}
   end
 
   def signup
