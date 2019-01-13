@@ -14,3 +14,6 @@
   <p><%= is_current_user?(@user) ? "your" : "#{@user.name}'s"%> posts:</p>
   <%= render @user.posts %>
 <% end %>
+<% if is_current_user?(@user) %>
+  <%= button_to 'Delete User', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

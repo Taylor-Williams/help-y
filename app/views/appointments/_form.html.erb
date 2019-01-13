@@ -13,3 +13,6 @@
   <%# <%= f.time_zone_select :timezone %>
   <%= f.submit %>
 <% end %>
+<% if appointment.id %>
+  <%= button_to 'Delete Appointment', appointment_path(appointment), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>

@@ -4,3 +4,6 @@
   <%= f.text_area :content, size: "100x10" %>
   <%= f.submit %>
 <% end %>
+<% if comment.id %>
+  <%= button_to 'Delete comment', comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+<% end %>
