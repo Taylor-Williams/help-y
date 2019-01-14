@@ -1,5 +1,5 @@
 <%= content_tag(:div, class:["post_info"]) do %>
-  <h3><%= @post.title %></h3><br>
+  <h1><%= @post.title %></h1><br>
   <p><%= @post.content %></p><br>
   <p><%= button_to "See author's page", user_path(@post.user), method: :get %></p>
 <% end %>
