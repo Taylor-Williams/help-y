@@ -3,13 +3,9 @@
   <%= render "form" %>
   <%= button_to "Create A Post", new_post_path, method: :get %>
 <% else %>
-  <p><%= "User's name: #{@user.name}" %></p>
-  <p><%= "email: #{@user.email}" %></p>
-  <p><%= "height: #{@user.height}" if !@user.height.blank? %></p>
-  <p><%= "age: #{@user.age}" if @user.age %></p>
-  <p><%= "bio: #{@user.bio}" if !@user.bio.blank? %></p>
-  <br>
+  <%= render 'display_info' %>
 <% end %>
+<br>
 <% if @user.posts.any? %>
   <p><%= is_current_user?(@user) ? "Your" : "#{@user.name}'s"%> posts:</p>
   <%= render @user.posts %>

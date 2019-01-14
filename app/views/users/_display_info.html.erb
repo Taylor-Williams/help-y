@@ -1,0 +1,7 @@
+<%= content_tag(:div, class:["user_info"]) do %>
+  <p><%= "User's name: #{@user.name}" %></p>
+  <p><%= "email: #{@user.email}" %></p>
+  <p><%= "height: #{@user.height}" if !@user.height.blank? %></p>
+  <p><%= "age: #{@user.age}" if @user.age %></p>
+  <p><%= "bio: #{@user.bio}" if !@user.bio.blank? %></p>
+<% end %>
