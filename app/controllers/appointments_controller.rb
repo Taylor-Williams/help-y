@@ -3,7 +3,7 @@ class AppointmentsController < ApplicationController
 
   def new
     @post = Post.find(params[:post_id])
-    unless @post && helpers.is_current_user(@post.user)
+    unless @post && helpers.is_current_user?(@post.user)
       redirect_to posts_path, flash: {danger: "You are not authorized to make that appointment"}
     end
     render :new
