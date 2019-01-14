@@ -1,14 +1,14 @@
 <% if is_current_user?(@user) %>
   <h3>Your Account</h3>
-  <%= render "form" %>
+  <%= render "form" %><br>
   <%= button_to "Create A Post", new_post_path, method: :get %>
 <% else %>
   <%= render 'display_info' %>
 <% end %>
 <br>
 <% if @user.posts.any? %>
-  <p><%= is_current_user?(@user) ? "Your" : "#{@user.name}'s"%> posts:</p>
-  <%= render @user.posts %>
+  <p><%= is_current_user?(@user) ? "Your" : "#{@user.name}'s"%> posts:</p><br>
+  <%= render @user.posts %><br>
 <% end %>
 <% if is_current_user?(@user) %>
   <%= button_to 'Delete User', user_path(@user), method: :delete, data: { confirm: 'Are you sure?' } %>
