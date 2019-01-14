@@ -1,0 +1,10 @@
+<%= content_tag(:div, class:["post_form"]) do %>
+  <%= form_for @post do |f| %>
+    <p>This form is for signing up any place that you have where you might want volunteer help from the lovely users of Help Y!</p>
+    <p>Title your place to attract potential volunteers <%= f.text_field :title %></p>
+    <p>Where is your place? What hobbies do you have? What is important to you? What do you want to accomplish with potential volunteers?</p>
+    <p>Tell us about yourself and your life. Volunteers want to get to know kind and interesting people, let them know about you and your mission.</p>
+    <p><%= f.text_area :content, size: "100x10" %></p>
+    <%= f.submit %>
+  <% end %>
+<% end %>
