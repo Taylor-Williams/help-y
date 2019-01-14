@@ -1,7 +1,7 @@
 <%= form_for @post do |f| %>
-  <%= f.label :title %>
-  <%= f.text_field :title %>
-  <%= f.label :content %>
-  <%= f.text_area :content, size: "100x10" %>
+  <p>Title your locale to attract potential volunteers:<%= f.text_field :title %></p>
+  <p>Where is your place? What hobbies do you have? What is important to you? What do you want to accomplish with potential volunteers?</p>
+  <p>Tell us about yourself and your life. Volunteers want to get to know kind people, let them know about you and your mission.</p>
+  <p><%= f.text_area :content, size: "100x10" %></p>
   <%= f.submit %>
 <% end %>
