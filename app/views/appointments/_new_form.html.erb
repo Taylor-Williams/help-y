@@ -1,4 +1,4 @@
-<%= content_tag(:div, class:["post_appointment_form"]) do %>
+<%= content_tag(:div, class:["new_post_appointment_form"]) do %>
   <%= form_for([@post, appointment]) do |f| %>
     <%= f.hidden_field :post_id, :value => @post.id %>
     <p>Enter a title for your volunteer opportunity, something that tells a user what they'll be doing:<%= f.text_field :title %></p>
