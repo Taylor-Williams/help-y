@@ -1,9 +1,7 @@
-<%= content_tag(:div, class:["post_info"]) do %>
-  <% if is_current_user?(@post.user) %>
-    <%= render 'form' %>
-  <% else %>
-    <%= render 'display_info' %>
-  <% end %>
+<% if is_current_user?(@post.user) %>
+  <%= render 'form' %>
+<% else %>
+  <%= render 'display_info' %>
 <% end %>
 <%= render partial: "comments/comment", collection: @comments %><br>
 <%= render partial: "appointments/appointment", collection: @appointments %><br>
