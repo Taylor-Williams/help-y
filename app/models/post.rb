@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   belongs_to :user
   has_many :appointments
+  accepts_nested_attributes_for :appointments
   has_many :volunteers, through: :appointments
   has_many :comments
 
