@@ -1,7 +1,8 @@
 <%= content_tag(:div, class:["post_form"]) do %>
   <%= form_for @post do |f| %>
     <p><%= f.label :title %><%= f.text_field :title %></p>
-    <p><%= f.label :content %><%= f.text_area :content, size: "100x10" %></p>
+    <p><%= f.label :content %></p>
+    <p><%= f.text_area :content, size: "100x10" %></p>
     <%= f.submit %>
   <% end %>
 <% end %>
