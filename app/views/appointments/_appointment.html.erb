@@ -1,9 +1,10 @@
-<br>
-<% if is_current_user?(@post.user) %>
-  <%= render partial: "appointments/form", locals: {appointment: appointment} %>
-<% else %>
-  <%= render partial: 'appointments/display_info', locals: {appointment: appointment} %>
-  <% unless appointment.full? || !appointment.active? %>
-    <%= render partial: 'volunteers/signup', locals: {appointment: appointment} %>
+<%= content_tag(:div, class:["post_appointment"]) do %>
+  <% if is_current_user?(@post.user) %>
+    <%= render partial: "appointments/form", locals: {appointment: appointment} %>
+  <% else %>
+    <%= render partial: 'appointments/display_info', locals: {appointment: appointment} %>
+    <% unless appointment.full? || !appointment.active? %>
+      <%= render partial: 'volunteers/signup', locals: {appointment: appointment} %>
+    <% end %>
   <% end %>
 <% end %>
