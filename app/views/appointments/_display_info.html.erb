@@ -1,0 +1,5 @@
+  <%= content_tag(:div, class:["post_appointment"]) do %>
+    <%= @post.user.name %> requests <%= appointment.spots %> volunteers from <%= appointment.display_date(appointment.start_date) %> to <%= appointment.display_date(appointment.end_date) %><br>
+    information: <%= appointment.info %><br>
+    spots left: <%= appointment.spots_left %><br>
+  <% end %>
