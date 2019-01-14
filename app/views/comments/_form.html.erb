@@ -3,7 +3,7 @@
   <%= f.hidden_field :post_id, :value => @post.id %>
   <p><%= f.text_area :content, size: "100x10" %></p>
   <%= f.submit %>
-<% end %>
+<% end %><br>
 <% if comment.id %>
-  <%= button_to 'Delete Comment', post_comment_path(comment), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= button_to 'Delete Comment', post_comment_path(@post, comment), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
