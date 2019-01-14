@@ -1,12 +1,14 @@
-<% if is_current_user?(@post.user) %>
-  <%= render 'form' %>
-<% else %>
-  <h3><%= @post.title %></h3><br>
-  <div><%= @post.content %></div><br>
-  <%= button_to "See author's page", user_path(@post.user), method: :get %><br>
+<%= content_tag(:div, class:["post_info"]) do %>
+  <% if is_current_user?(@post.user) %>
+    <%= render 'form' %>
+  <% else %>
+    <h3><%= @post.title %></h3><br>
+    <p><%= @post.content %></p><br>
+    <p><%= button_to "See author's page", user_path(@post.user), method: :get %></p>
+  <% end %>
 <% end %>
-<%= render partial: "appointments/appointment", collection: @appointments %><br>
 <%= render partial: "comments/comment", collection: @comments %><br>
+<%= render partial: "appointments/appointment", collection: @appointments %><br>
 <% if is_current_user?(@post.user) %>
   <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
