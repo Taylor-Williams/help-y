@@ -1,17 +1,17 @@
 <% if is_current_user?(@user) %>
   <h3>Your Account</h3>
   <%= render "form" %>
-  <%= link_to "Create Post", new_post_path %>
+  <%= button_to "Create A Post", new_post_path, method: :get %>
 <% else %>
   <p><%= "User's name: #{@user.name}" %></p>
   <p><%= "email: #{@user.email}" %></p>
-  <p><%= "height: #{@user.height}" if !@user.height.empty? %></p>
+  <p><%= "height: #{@user.height}" if !@user.height.blank? %></p>
   <p><%= "age: #{@user.age}" if @user.age %></p>
-  <p><%= "bio: #{@user.bio}" if !@user.bio.empty? %></p>
+  <p><%= "bio: #{@user.bio}" if !@user.bio.blank? %></p>
   <br>
 <% end %>
 <% if @user.posts.any? %>
-  <p><%= is_current_user?(@user) ? "your" : "#{@user.name}'s"%> posts:</p>
+  <p><%= is_current_user?(@user) ? "Your" : "#{@user.name}'s"%> posts:</p>
   <%= render @user.posts %>
 <% end %>
 <% if is_current_user?(@user) %>
