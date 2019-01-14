@@ -1,10 +1,21 @@
-<%= content_tag(:div, class:["post_form"]) do %>
+<%= content_tag(:div, class:["new_post_form"]) do %>
   <%= form_for @post do |f| %>
     <p>This form is for signing up any place that you have where you might want volunteer help from the lovely users of Help Y!</p>
     <p>Title your place to attract potential volunteers <%= f.text_field :title %></p>
     <p>Where is your place? What hobbies do you have? What is important to you? What do you want to accomplish with potential volunteers?</p>
     <p>Tell us about yourself and your life. Volunteers want to get to know kind and interesting people, let them know about you and your mission.</p>
     <p><%= f.text_area :content, size: "100x10" %></p>
+    <p>If you want to make a new volunteer appointment with this post, fill out the information below:</p>
+    <%= f.fields_for :appointments, @post.appointments.build do |appointments_fields| %>
+    <p>Enter a title for your volunteer opportunity, something that tells a user what they'll be doing <%= appointments_fields.text_field :title %></p>
+    <p>How many people will you be looking to host <%= appointments_fields.text_field :spots %></p>
+    <p>Tell us a bit more about what you plan for people who come to stay with you. While you host them, what will daily life be like?</p>
+    <p>This is a great opportunity to list your expectations and accomodations, past volunteer experiences if you have any!</p>
+    <p><%= appointments_fields.text_area :info, size: "100x10" %></p>
+    <p>When will you want volunteers to first arrive?<%= appointments_fields.datetime_select :start_date %></p>
+    <p>And when will you stop hosting volunteers?<%= appointments_fields.datetime_select :end_date %></p>
+    <%# <%= f.time_zone_select :timezone %>
     <%= f.submit %>
+    <% end %>
   <% end %>
 <% end %>
