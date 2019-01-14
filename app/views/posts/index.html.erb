@@ -1,2 +1,4 @@
-<%= button_to "Create Post", new_post_path, action: :get unless !logged_in? %>
+<%  if logged_in?  %>
+  <%= button_to "Create Post", new_post_path, method: :get %>
+<% end %><br>
 <%= render @posts %>
