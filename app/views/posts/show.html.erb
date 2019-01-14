@@ -5,7 +5,7 @@
 <% end %>
 <%= render partial: "comments/comment", collection: @comments %><br>
 <%= render partial: "appointments/appointment", collection: @appointments %><br>
-<p>Would you like to <%= button_to "make an appointment", new_post_appointment_path(@post), method: :get %>?</p>
+<%= button_to "Create a new appointment", new_post_appointment_path(@post), method: :get %>
 <% if is_current_user?(@post.user) %>
   <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
