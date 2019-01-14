@@ -13,5 +13,5 @@
     <p><%= f.label :info %><br><%= f.text_area :info, size: "100x10" %></p>
     <%= f.submit %>
   <% end %><br>
-  <%= button_to 'Delete Appointment', post_appointment_path(appointment), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= button_to 'Delete Appointment', post_appointment_path(@post,appointment), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>

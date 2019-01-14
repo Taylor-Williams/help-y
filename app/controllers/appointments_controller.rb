@@ -31,7 +31,7 @@ class AppointmentsController < ApplicationController
 
   def destroy
     appointment = Appointment.find(params[:id])
-    if appointment && appointment.user_id == session[user_id]
+    if appointment && appointment.post.user_id == session[:user_id]
       Appointment.destroy(params[:id])
       flash[:success] = "Successfully deleted appointment"
     else
