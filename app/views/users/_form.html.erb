@@ -1,17 +1,16 @@
 <%= form_for @user do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :password %>
-  <%= f.text_field :password %>
-  <%= f.label :password_confirmation %>
-  <%= f.text_field :password_confirmation %>
-  <%= f.label :email %>
-  <%= f.text_field :email %>
-  <%= f.label :height %>
-  <%= f.text_field :height %>
-  <%= f.label :age %>
-  <%= f.text_field :age %>
-  <%= f.label :bio %>
-  <%= f.text_area :bio, size: "100x10"%>
+  <p>
+    <%= f.label :name %>:<%= f.text_field :name %> 
+    <%= f.label :password %>:<%= f.text_field :password %> 
+    <%= f.label :password_confirmation %>:<%= f.text_field :password_confirmation %> 
+    <%= f.label :email %>:<%= f.text_field :email %>
+  </p>
+  <p>additional info, not required:</p>
+  <p>
+    <%= f.label :height %>:<%= f.text_field :height %>  
+    <%= f.label :age %>:<%= f.text_field :age %>
+  </p>
+  <p><%= f.label :bio %></p>
+  <p><%= f.text_area :bio, size: "100x10"%></p>
   <%= f.submit %>
 <% end %>
