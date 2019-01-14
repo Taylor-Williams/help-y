@@ -2,20 +2,8 @@
 <% if is_current_user?(@post.user) %>
   <%= render partial: "appointments/form", locals: {appointment: appointment} %>
 <% else %>
-  <%= content_tag(:div, class:["post_appointment"]) do %>
-    <%= @post.user.name %> requests <%= appointment.spots %> volunteers from <%= appointment.display_date(appointment.start_date) %> to <%= appointment.display_date(appointment.end_date) %><br>
-    information: <%= appointment.info %><br>
-    spots left: <%= appointment.spots_left %><br>
-  <% end %>
+  <%= render partial: 'appointments/display_info', locals: {appointment: appointment} %>
   <% unless appointment.full? || !appointment.active? %>
-    <%= form_tag volunteers_path(appointment.id, current_user) do %>
-      <%= hidden_field_tag 'post_id', @post.id %>
-      <% if appointment.has_user?(current_user) %>
-        <%= hidden_field_tag "_method", "destroy" %>
-        <%= button_tag "Un-volunteer to help #{@post.user.name}" %>
-      <% else %>
-        <%= button_tag "Volunteer to help #{@post.user.name}" %>
-      <% end %>
-    <% end %>
+    <%= render partial: 'volunteers/signup', locals: {appointment: appointment} %>
   <% end %>
 <% end %>
