@@ -1,6 +1,10 @@
 class AppointmentsController < ApplicationController
   before_action :require_login
 
+  def new
+    @appointment = Appointment.new
+  end
+
   def create
     @appointment = Appointment.create(appointment_params)
     if @appointment.valid? 

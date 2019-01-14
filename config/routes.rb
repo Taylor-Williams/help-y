@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   get 'users/new' => 'static#signup'
   resources :posts, except: [:edit] do
     resources :comments, only: [:create, :update, :destroy]
-    resources :appointments, only: [:create, :update, :destroy]
+    resources :appointments, only: [:new, :create, :update, :destroy]
   end
 
   match 'volunteers/:appointment_id/:user_id', to: 'volunteers#manage', via: [:post, :delete], as: 'volunteers'
