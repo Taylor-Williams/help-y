@@ -1,7 +1,9 @@
-<%= form_for([@post, appointment]) do |f| %>
-  <%= f.hidden_field :post_id, :value => @post.id %>
-  <p><%= f.label :spots %><%= f.text_field :spots %></p>
-  <p><%= f.label :info %><%= f.text_area :info, size: "100x10" %></p>
-  <%= f.submit %>
+<%= content_tag(:div, class:["post_appointment_form"]) do %>
+  <%= form_for([@post, appointment]) do |f| %>
+    <%= f.hidden_field :post_id, :value => @post.id %>
+    <p><%= f.label :spots %><%= f.text_field :spots %></p>
+    <p><%= f.label :info %><%= f.text_area :info, size: "100x10" %></p>
+    <%= f.submit %>
+  <% end %>
+  <%= button_to 'Delete Appointment', appointment_path(appointment), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
-<%= button_to 'Delete Appointment', appointment_path(appointment), method: :delete, data: { confirm: 'Are you sure?' } %>
