@@ -19,6 +19,16 @@ class AppointmentsController < ApplicationController
     redirect_to post_path(params[:post_id])
   end
 
+  def show
+    @appointment = Appointment.find(params[:id])
+    if @appointment
+      @volunteer = @appointment.has_user?(helpers.current_user) || Volunteer.new
+      render :show
+    else
+      redirect_to post_path(params[:post_id]), flash: {danger: "No such appointment for this post"}
+    end
+  end
+
   def update
     @appointment = Appointment.find(params[:id])
     if @appointment.update(appointment_params)
