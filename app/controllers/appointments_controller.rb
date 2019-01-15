@@ -21,12 +21,10 @@ class AppointmentsController < ApplicationController
 
   def show
     @appointment = Appointment.find(params[:id])
-    if @appointment
-      @volunteer = @appointment.has_user?(helpers.current_user) || Volunteer.new
-      render :show
-    else
+    unless @appointment
       redirect_to post_path(params[:post_id]), flash: {danger: "No such appointment for this post"}
     end
+    @volunteer = @appointment.has_user?(helpers.current_user) || Volunteer.new
   end
 
   def update
