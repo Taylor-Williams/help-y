@@ -24,7 +24,11 @@ class AppointmentsController < ApplicationController
     unless @appointment
       redirect_to appointments_path, flash: {danger: "No such appointment"}
     end
-    @volunteer = @appointment.has_user?(helpers.current_user) || Volunteer.new
+    if @appointment.has_user?(helpers.current_user)
+      @volunteer = Volunteer.find_by(appointment_id: @appointment.id, user_id: helpers.current_user) 
+    else
+      @volunteer = Volunteer.new
+    end
   end
 
   def index
