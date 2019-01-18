@@ -1,5 +1,11 @@
 <%= content_tag(:div, class:["post_appointment_info"]) do %>
-  <p><%= @post.user.name %> requests <%= appointment.spots %> volunteers from <%= appointment.display_date(appointment.start_date) %> to <%= appointment.display_date(appointment.end_date) %></p>
+  <h1><%= appointment.title %></h1>
+  <p><%= appointment.post.user.name %> requests <%= appointment.spots %> volunteers from 
+    <strong><%= appointment.display_date(appointment.start_date) %> to <%= appointment.display_date(appointment.end_date) %></strong></p>
   <p>information: <%= appointment.info %></p>
   <p>spots left: <%= appointment.spots_left %></p>
+  <p>created on: <%= appointment.display_date(appointment.created_at) %><p>
+  <p>last updated on: <%= appointment.display_date(appointment.updated_at) %><p>
+  <p><%= link_to "post page (might have similar volunteer opportunities)", post_path(appointment.post) %></p>
+  <p><%= link_to "owner's page", user_path(appointment.post.user) %></p>
 <% end %>

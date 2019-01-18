@@ -1,8 +1,9 @@
-  <% if is_current_user?(@post.user) %>
-    <%= render partial: "appointments/form", locals: {appointment: appointment} %>
-  <% else %>
-    <%= render partial: 'appointments/display_info', locals: {appointment: appointment} %>
-    <% unless appointment.full? || !appointment.active? %>
-      <%= render partial: 'volunteers/signup', locals: {appointment: appointment} %>
-    <% end %>
-  <% end %>
+<br>
+<%= content_tag(:div, class:["appointment"]) do %>
+  <h3>title: <%= appointment.title %></h3>
+  <p>information: <%= appointment.info %></p>
+  <p>status: <%= appointment.active_string %><p>
+  <p>from: <%= appointment.display_date(appointment.start_date) %> - <%= appointment.display_date(appointment.end_date) %><p>
+  <p>created on: <%= appointment.display_date(appointment.created_at) %><p>
+  <%= button_to "more info and signup to volunteer", appointment_path(appointment), method: :get %>
+<% end %>
