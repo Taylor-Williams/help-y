@@ -1,0 +1,5 @@
+<% if is_current_user?(@post.user) %>
+  <%= render partial: "appointments/form", locals: {appointment: appointment} %>
+<% else %>
+  <%= render partial: 'appointments/appointment', locals: {appointment: appointment} %>
+<% end %>
