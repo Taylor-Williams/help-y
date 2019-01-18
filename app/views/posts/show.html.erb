@@ -6,7 +6,7 @@
 <%= content_tag(:h3, "Comments") unless @comments.blank? %>
 <%= render @comments %><br>
 <%= content_tag(:h3, "Volunteer Opportunities") unless @appointments.blank? %>
-<%= render @appointments %><br>
+<%= render partial: 'appointments/post_appointment', collection: @appointments, as: :appointment %><br>
 <% if is_current_user?(@post.user) %>
   <%= button_to "Create a new Appointment", new_post_appointment_path(@post), method: :get %><br>
   <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
