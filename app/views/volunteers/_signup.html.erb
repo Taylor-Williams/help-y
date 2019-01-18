@@ -1,9 +1,14 @@
-<%= form_tag volunteers_path(appointment.id, current_user) do %>
-  <%= hidden_field_tag 'post_id', @post.id %>
-  <% if appointment.has_user?(current_user) %>
-    <%= hidden_field_tag "_method", "destroy" %>
-    <%= button_tag "Un-volunteer to help #{@post.user.name}" %>
-  <% else %>
-    <%= button_tag "Volunteer to help #{@post.user.name}" %>
-  <% end %>
+<%= form_for [@appointment, @volunteer] do |f| %>
+<p><strong>Would you like to sign up to volunteer for this appointment? Fill out the dates below!</strong></p>
+  <%= hidden_field :volunteer, :user_id, :value => current_user %>
+  <%= hidden_field :volunteer, :appointment_id, :value => @appointment.id %>
+  <p><strong>Make sure the dates you select to volunteer with are within the volunteer opportunities' dates!</strong></p>
+  <p>
+    <%= f.label :start_date %> <%= f.datetime_select :start_date %> 
+    <%= f.label :end_date %> <%= f.datetime_select :end_date %> 
+  </p>
+  <%= f.submit @volunteer.id ? "Edit Dates" : "Volunteer" %>
+<% end %><br>
+<% if @volunteer.id %>
+  <%= button_to 'Un-volunteer', appointment_volunteer_path(@appointment,@volunteer), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
