@@ -8,8 +8,9 @@ class SessionsController < ApplicationController
   end
 
   def login
-    @user = User.find_by(email: params[:email]).try(authenticate: params[:password])
-    if @user.valid?
+    user = User.find_by(email: params[:email])
+    if user && user.authenticate(params[:password])
+      @user = user
       session[:user_id] = @user.id
       redirect_to @user, flash: {success: "You are now logged in"}
     else
