@@ -7,9 +7,14 @@ class Appointment < ApplicationRecord
   validates :spots, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   validates :start_date, date: { after: Proc.new { Date.today }, message: 'must be after today' }, on: :create
   validates :end_date, date: { after: :start_date, message: 'must be after start date' }
+  validates :volunteers_count, numericality: { greater_than_or_equal_to: :spots }
+
+  def days_left
+    (end_date - Time.now).to_i  / 86400 #86400 magic number turns Date comparison from seconds into days
+  end
 
   def spots_left
-    spots - volunteers.size
+    spots - volunteers_count.to_i
   end
 
   def display_date(date)
@@ -17,7 +22,15 @@ class Appointment < ApplicationRecord
   end
 
   def active?
-    (Time.now - end_date).to_i < 0
+    days_left > 0
+  end
+
+  def full?
+    spots == volunteers_count
+  end
+
+  def available?
+    active? && !full?
   end
 
   def active_string
@@ -26,16 +39,16 @@ class Appointment < ApplicationRecord
       "Closed, appointment end date has passed."
     when active? && full?
       "Active, but full of volunteers. consider emailing the post creator if you're really interested."
-    when active? && !full?
-      "Active and ready to take volunteers!"
+    when available?
+      "Open for #{days_left} more days and ready to take #{spots_left} volunteers!"
     end
-  end
-
-  def full?
-    spots_left == 0
   end
 
   def has_user?(user_id)
     volunteers.any?{|v| v.user_id = user_id}
+  end
+
+  def self.available
+    where("end_date >= ?", Time.now) & where.not("volunteers_count = spots").order(end_date: :asc)
   end
 end
