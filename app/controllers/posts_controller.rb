@@ -53,6 +53,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-      params.require(:post).permit(:user_id, :title, :content, appointments_attributes: [:title, :spots, :info, :start_date, :end_date])
+    params.require(:post).permit(:user_id, :title, :content, appointments_attributes:
+      [:title, :spots, :info, :start_date, :end_date, :volunteers_count])
   end
 end

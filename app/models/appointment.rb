@@ -7,7 +7,7 @@ class Appointment < ApplicationRecord
   validates :spots, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
   validates :start_date, date: { after: Proc.new { Date.today }, message: 'must be after today' }, on: :create
   validates :end_date, date: { after: :start_date, message: 'must be after start date' }
-  validates :volunteers_count, numericality: { greater_than_or_equal_to: :spots }
+  validates :volunteers_count, numericality: { less_than_or_equal_to: :spots }
 
   def days_left
     (end_date - Time.now).to_i  / 86400 #86400 magic number turns Date comparison from seconds into days
