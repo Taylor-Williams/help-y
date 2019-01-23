@@ -1,9 +1,9 @@
 <br>
 <%= content_tag(:div, class:["appointment"]) do %>
-  <h3>title: <%= appointment.title %></h3>
+  <h3><%= appointment.title %></h3>
   <p>information: <%= appointment.info %></p>
   <p>status: <%= appointment.active_string %><p>
   <p>from: <%= appointment.display_date(appointment.start_date) %> - <%= appointment.display_date(appointment.end_date) %><p>
   <p>created on: <%= appointment.display_date(appointment.created_at) %><p>
-  <%= button_to "more info and signup to volunteer", appointment_path(appointment), method: :get %>
+  <%= button_to "more information", appointment_path(appointment), method: :get %>
 <% end %>
