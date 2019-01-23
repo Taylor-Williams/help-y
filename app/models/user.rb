@@ -1,8 +1,8 @@
 class User < ApplicationRecord
   has_secure_password
-  has_many :posts
-  has_many :volunteers
-  has_many :comments
+  has_many :posts, dependent: :destroy
+  has_many :volunteers, dependent: :destroy
+  has_many :comments, dependent: :destroy
   has_many :appointments, through: :volunteers
 
   validates :name, :email, presence: true
