@@ -16,7 +16,7 @@
         <% if logged_in? %>
           <%= link_to "Your account", user_path(current_user), class: "navbar-brand" %>
           <%= link_to "Log out", logout_path, method: 'post', class: "navbar-brand"%>
-          <%= link_to 'All volunteer opportunities', appointments_path, class: "navbar-brand" %>
+          <%= link_to 'All available volunteer opportunities', available_appointments_path, class: "navbar-brand" %>
         <% else %>
           <%= link_to "Sign in with Github", '/auth/github', class: "navbar-brand" %>
           <%= link_to "Log in", root_path, class: "navbar-brand" %>

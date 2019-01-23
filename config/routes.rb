@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :comments, only: [:create, :update, :destroy]
     resources :appointments, only: [:new, :create, :update, :destroy]
   end
+  get 'appointments/available' => 'appointments#available', as: "available_appointments"
   resources :appointments, only: [:show, :index] do
     resources :volunteers, only: [:create, :update, :destroy]
   end

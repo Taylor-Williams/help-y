@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :require_login
+  before_action :require_login, except: [:available]
 
   def new
     @post = Post.find(params[:post_id])
@@ -33,6 +33,10 @@ class AppointmentsController < ApplicationController
 
   def index
     @appointments = Appointment.all
+  end
+
+  def available
+    @appointments = Appointment.available
   end
 
   def update
