@@ -11,7 +11,8 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to @post, flash: {success: "Successfully created Post"}
     else
-      render :new, flash: {danger: @post.errors.full_messages.join(", ")}
+      flash[:danger] = @post.errors.full_messages.join(", ")
+      render :new
     end
   end
 
@@ -36,14 +37,14 @@ class PostsController < ApplicationController
     else
       flash[:danger] = @post.errors.full_messages.join(", ")
     end
-    render :show
+    redirect_to @post
   end
 
 
   def destroy
     if Post.find(params[:id])
       Post.destroy(params[:id])
-      flash[:success] = "Successfully deleted Post"
+      flash[:success] = "Successfully deleted post"
     else
       flash[:danger] = "Invalid Post to delete"
     end
