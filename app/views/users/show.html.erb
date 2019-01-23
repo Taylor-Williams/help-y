@@ -7,7 +7,7 @@
 <% end %>
 <br>
 <% if @user.posts.any? %>
-  <p><%= is_current_user?(@user) ? "Your" : "#{@user.name}'s"%> posts:</p><br>
+  <h3><%= is_current_user?(@user) ? "Your" : "#{@user.name}'s"%> posts:</h3>
   <%= render @user.posts %><br>
 <% end %>
 <% if is_current_user?(@user) %>

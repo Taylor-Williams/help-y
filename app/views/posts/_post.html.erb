@@ -1,1 +1,2 @@
 <%= render partial: 'posts/display_info', locals: { post: post } %>
+<p><%= button_to "See post's page", post_path(post), method: :get %></p>
