@@ -1,6 +1,6 @@
 class Volunteer < ApplicationRecord
   belongs_to :user
-  belongs_to :appointment, inverse_of: :volunteers
+  belongs_to :appointment, counter_cache: true
 
   validates :start_date, date: { after_or_equal_to: Proc.new { |obj| obj.appointment.start_date },
     after_or_equal_to: Proc.new { Date.today },
