@@ -20,14 +20,15 @@ class UsersController < ApplicationController
       if @user.update(user_params)
         redirect_to @user, flash: {success: "Successfully edited profile"}
       else
-        render :show, flash: {danger: @user.errors.full_messages.join(", ")}
+        flash[:danger] = @user.errors.full_messages.join(", ")
+        render :show
       end
     end
 
     def destroy
       User.destroy(params[:id])
       session.delete(:user_id)
-      redirect_to home_path, flash: {success: "Successfully deleted profile"}
+      redirect_to root_path, flash: {success: "Successfully deleted profile"}
     end
   
     private
