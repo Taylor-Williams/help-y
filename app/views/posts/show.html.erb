@@ -1,7 +1,7 @@
 <% if is_current_user?(@post.user) %>
   <%= render 'form' %>
 <% else %>
-  <%= render 'display_info' %>
+  <%= render partial: 'display_info', locals: {post: @post} %>
 <% end %>
 <%= content_tag(:h3, "Comments") unless @comments.blank? %>
 <%= render @comments %><br>
