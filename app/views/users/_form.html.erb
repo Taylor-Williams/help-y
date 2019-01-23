@@ -2,9 +2,9 @@
   <%= form_for @user do |f| %>
     <p>
       <%= f.label :name %><%= f.text_field :name %> 
+      <%= f.label :email %><%= f.text_field :email %>
       <%= f.label :password %><%= f.text_field :password %> 
       <%= f.label :password_confirmation %><%= f.text_field :password_confirmation %> 
-      <%= f.label :email %><%= f.text_field :email %>
     </p>
     <p>additional info, not required:</p>
     <p>

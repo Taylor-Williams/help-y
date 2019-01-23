@@ -1,2 +1,2 @@
 <%= render partial: 'appointments/display_info', locals: { appointment: @appointment } %>
-<%= render 'volunteers/signup' %>
+<%= render 'volunteers/signup' if @appointment.available? %>
