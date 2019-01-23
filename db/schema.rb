@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_01_18_021945) do
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "volunteers_count"
+    t.integer "volunteers_count", default: 0
   end
 
   create_table "comments", force: :cascade do |t|
