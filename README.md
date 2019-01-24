@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
 * Ruby version
 
-* System dependencies
+2.5.3
 
 * Configuration
 
+Clone this library and run bundle install
+
 * Database creation
+
+Run rake db:migrate
 
 * Database initialization
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
+If you're looking for dummy info to test the app functionality run rake db:seed (coming soon!)
 
 * Deployment instructions
 
-* ...
+Just run rails s and play with Help Y, everything should work as-is! Feel free to fork and pull request an bug fixes.
