@@ -3,8 +3,6 @@
 <% else %>
   <%= render partial: 'display_info', locals: {post: @post} %>
 <% end %>
-<%= content_tag(:h3, "Comments") unless @comments.blank? %>
-<%= render @comments %><br>
 <%= content_tag(:h3, "Volunteer Opportunities") unless @appointments.blank? %>
 <%= render partial: 'appointments/post_appointment', collection: @appointments, as: :appointment %><br>
 <% if is_current_user?(@post.user) %>

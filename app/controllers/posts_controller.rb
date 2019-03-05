@@ -26,8 +26,6 @@ class PostsController < ApplicationController
       redirect_to home_path, flash:{error: "Not a valid Post"}
     end
     @appointments = @post.appointments
-    @post.comments.build(user_id: helpers.current_user) #for making new comment
-    @comments = @post.comments
   end
 
   def update
