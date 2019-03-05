@@ -11,3 +11,4 @@
   <%= button_to "Create a new Appointment", new_post_appointment_path(@post), method: :get %><br>
   <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
+<%= button_to "Look at all of my appointments", post_appointments_path(@post), method: :get %>

@@ -32,7 +32,14 @@ class AppointmentsController < ApplicationController
   end
 
   def index
-    @appointments = Appointment.all
+    if params[:post_id]
+      @post = Post.find(params[:post_id])
+      if @post
+        @appointments = @post.appointments
+      end
+    else
+      @appointments = Appointment.all
+    end  
   end
 
   def available
