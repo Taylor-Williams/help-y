@@ -10,6 +10,15 @@ class CommentsController < ApplicationController
     redirect_to post_path(params[:post_id])
   end
 
+  def index
+    post = Post.find(params[:post_id])
+    if post
+      render json: post.comments, status: 200
+    else
+      render json: {response: 'invalid Post id'}, status: 400
+    end
+  end
+
   def update
     @comment = Comment.find(params[:id])
     if @comment.update(comment_params)

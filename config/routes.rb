@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :users, except: [:new, :edit, :index]
   get 'users/new' => 'static#signup'
   resources :posts, except: [:edit] do
-    resources :comments, only: [:create, :update, :destroy]
+    resources :comments, only: [:create, :update, :destroy, :index]
     resources :appointments, only: [:new, :create, :update, :destroy, :index]
   end
   get 'appointments/available' => 'appointments#available', as: "available_appointments"
