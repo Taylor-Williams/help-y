@@ -36,7 +36,7 @@ gem 'dotenv-rails'
 gem 'pry'
 gem 'date_validator', '~> 0.8.1'
 gem 'bootstrap-sass'
-
+gem 'active-model-serializers'
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
