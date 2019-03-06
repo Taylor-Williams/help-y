@@ -5,10 +5,16 @@ class CommentsController < ApplicationController
     @comment = Comment.new(comment_params)
     if @comment.save
       flash[:success] = "Successfully created comment"
-      render json: @comment, status: 200
+      respond_to do |f|
+        f.json {render json: @comment, status: 200}
+        f.html {redirect_to post_path(params[:post_id])}
+      end
     else
       flash[:danger] = @comment.errors.full_messages.join(", ")
-      render json: {response: 'invalid comment'}, status: 400
+      respond_to do |f|
+        f.json {render json: {response: 'invalid comment'}, status: 400}
+        f.html {redirect_to post_path(params[:post_id])}
+      end
     end
   end
 

@@ -32,8 +32,13 @@ Comment.saveComment = function() {
   let $form = $(".comment-form")
   let action = $form.attr("action")
   let formData = $form.serialize()
-  $.post(action, formData, (comment) => {
-    Comment.renderCommentsDiv([comment])
+  $.ajax({
+    url: action,
+    data: formData,
+    dataType: JSON,
+    method: 'POST'
+  }).success((comment) => {
+    console.log(comment)
   })
 }
 Comment.newCommentForm = function(){ 

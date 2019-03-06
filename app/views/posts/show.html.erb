@@ -3,7 +3,7 @@
 <% else %>
   <%= render partial: 'display_info', locals: {post: @post} %>
 <% end %>
-<input id="new-comment-button" name="commit" type="submit" value="Add New Comment" />
+<input id="new-comment-button" type="submit" value="Add New Comment" />
 <div id="new-comment"></div>
 <div class="comments"></div>
 <%= button_to "Load Comments", post_comments_path(@post), {method: :get, form_class: "get-comments"} %>
@@ -29,5 +29,5 @@
   <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
   <input type="hidden" name="comment[user_id]" value="<%= current_user %>">
   <label for='comment[content]'>content:</label><textarea name='comment[content]', cols="100", rows="10"></textarea>
-  <div><input id="create-comment" type="submit" value="Create Comment" /></div>
+  <p><input id="create-comment" type="submit" value="Create Comment" /></p>
 </script>
