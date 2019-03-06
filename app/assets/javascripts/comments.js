@@ -16,6 +16,7 @@ class Comment {
 Comment.getComments = function() {
   $.get(this.baseURL, (comments) => {
     if(comments.length) {
+      this.commentsDiv.empty()
       this.renderCommentsDiv(comments)
     } else {
       this.commentsDiv.text("There are no comments for this post")
@@ -40,9 +41,7 @@ Comment.removeClearButton = function() {
 } 
 Comment.renderCommentsDiv = function(comments){
   let oldComments = $(".comment-content")
-  if(!$(".comment-content").length){
-    this.commentsDiv.text("")
-  }
+  if(!$(".comment-content").length){this.commentsDiv.empty()}
   comments.forEach((comment) => {
     c = new this(comment)
     this.commentsDiv.append(c.renderComment())
