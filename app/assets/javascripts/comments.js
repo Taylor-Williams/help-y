@@ -9,10 +9,12 @@ class Comment {
   renderComment() {
     return Comment.template(this)
   }
+  renderForm(){
+    return Comment.commentFormTemplate(this)
+  }
 }
 Comment.getComments = function() {
-  address = $('.get-comments').attr("action")
-  $.get(address, (comments) => {
+  $.get(getAddress, (comments) => {
     if(comments.length) {
       comments.forEach((comment) => {
       c = new Comment(comment)
@@ -22,15 +24,24 @@ Comment.getComments = function() {
     }
   })
 }
+Comment.renderTemplates = function(){
+  Comment.source = document.getElementById("comment-template").innerHTML
+  Comment.template = Handlebars.compile(Comment.source)
+  Comment.commentFormSource = document.getElementById("comment-form-template").innerHTML
+  Comment.commentFormTemplate = Handlebars.compile(Comment.commentFormSource)
+}
+Comment.renderAttributes = function(){
+  Comment.userID = $(".user-link").attr("href").slice(-1)
+  Comment.getAddress = $('.get-comments').attr("action")
+  let digit = new RegExp("(\\d)") 
+  Comment.postID = Comment.getAddress.split(digit)[1]
+}
 $(
   function() {
-    Comment.source = document.getElementById("comment-template").innerHTML
-    Comment.template = Handlebars.compile(Comment.source)
-    Comment.commentFormSource = document.getElementById("comment-form-template").innerHTML
-    Comment.commentFormTemplate = Handlebars.compile(Comment.commentFormSource)
-    console.log(Comment.commentFormTemplate())
-    Comment.userID = $(".user-link").attr("href").slice(-1)
-    $('#new-comment').text(Comment.commentFormTemplate(new Comment({user: Comment.userID})))
+    Comment.renderTemplates()
+    Comment.renderAttributes()
+    let newComment = new Comment({user: {id:Comment.userID},post: {id: Comment.postID}}) 
+    $('#new-comment').html(newComment.renderForm())
     $('.get-comments').on("submit", function(e){
       e.preventDefault()
       Comment.getComments()

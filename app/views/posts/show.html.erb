@@ -3,9 +3,10 @@
 <% else %>
   <%= render partial: 'display_info', locals: {post: @post} %>
 <% end %>
+<input id="new-comment-button" name="commit" type="submit" value="Add Comment" />
+<div id="new-comment"></div>
 <div class="comments"></div>
 <%= button_to "Load Comments", post_comments_path(@post), {method: :get, form_class: "get-comments"} %>
-<div id="new-comment"></div>
 <%= content_tag(:h3, "Volunteer Opportunities") unless @appointments.blank? %>
 <%= render partial: 'appointments/post_appointment', collection: @appointments, as: :appointment %><br>
 <% if is_current_user?(@post.user) %>
