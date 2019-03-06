@@ -69,19 +69,3 @@ $(
     })
   }
 )
-// some logic for later: when there is no comment being shown there is no "#comment-content"
-// in (".comments"). there may be some inner html.
-// if (currentGame) {
-//   $.ajax({
-//     type: 'PATCH',
-//     url: `/games/${currentGame}`,
-//     data: gameData
-//   });
-// } else {
-//   $.post('/games', gameData, function(game) {
-//     currentGame = game.data.id;
-//     $('#games').append(`<button id="gameid-${game.data.id}">${game.data.id}</button><br>`);
-//     $("#gameid-" + game.data.id).on('click', () => reloadGame(game.data.id));
-//   });
-// }
-// copied from tictactoe lab

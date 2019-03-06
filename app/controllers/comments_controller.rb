@@ -3,9 +3,7 @@ class CommentsController < ApplicationController
   
   def create
     @comment = Comment.new(comment_params)
-    binding.pry
     if @comment.save
-      binding.pry
       flash[:success] = "Successfully created comment"
       render json: @comment, status: 200
     else
