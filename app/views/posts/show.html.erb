@@ -19,11 +19,7 @@
   <div class="comment-content">
     <h4>{{content}}</h4>
     <div class="comment-data">
-      {{#if userID === user.id}}
-
-      {{else}}
-        written by: <a href="/users/{{user.id}}">{{user.name}}</a>, last edited: {{updated_at}}
-      {{/if}}
+      written by: <a href="/users/{{user.id}}">{{user.name}}</a>, last edited: {{updated_at}}
     </div>
   </div>
 </script>
