@@ -28,17 +28,18 @@ Comment.renderComments = function(comments){
     $(".comments").append(c.renderComment())
   })
 }
-Comment.postComment = function() {
+Comment.saveComment = function() {
   let newContent = $("#new-comment-content").text()
-  $.post(Comment.baseURL, {comment: {content: newContent}}, () => {
-    //   $.post('/games', gameData, function(game) {
+//   $.post('/games', gameData, function(game) {
 //     currentGame = game.data.id;
 //     $('#games').append(`<button id="gameid-${game.data.id}">${game.data.id}</button><br>`);
 //     $("#gameid-" + game.data.id).on('click', () => reloadGame(game.data.id));
 //   });
-
+  $.ajax({
+    type: 'post',
+    url: Comment.baseURL,
+    data: {comment: {content: newContent, user_id: Comment.userID, post_id: Comment.postID}}
   })
-  this.postComments()
 }
 Comment.newCommentForm = function(){
   let newComment = new Comment({user: {id:Comment.userID},post: {id: Comment.postID}}) 

@@ -2,7 +2,9 @@ class CommentsController < ApplicationController
   before_action :require_login
   
   def create
+    binding.pry
     if @comment = Comment.create(comment_params)
+      binding.pry
       flash[:success] = "Successfully created comment"
     else
       flash[:danger] = @comment.errors.full_messages.join(", ")
