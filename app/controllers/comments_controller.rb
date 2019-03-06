@@ -2,14 +2,16 @@ class CommentsController < ApplicationController
   before_action :require_login
   
   def create
+    @comment = Comment.new(comment_params)
     binding.pry
-    if @comment = Comment.create(comment_params)
+    if @comment.save
       binding.pry
       flash[:success] = "Successfully created comment"
+      render json: @comment, status: 200
     else
       flash[:danger] = @comment.errors.full_messages.join(", ")
+      render json: {response: 'invalid comment'}, status: 400
     end
-    redirect_to post_path(params[:post_id])
   end
 
   def index

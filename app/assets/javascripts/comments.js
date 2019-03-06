@@ -16,29 +16,24 @@ class Comment {
 Comment.getComments = () => {
   $.get(Comment.baseURL, (comments) => {
     if(comments.length) {
-      Comment.renderComments(comments)
+      Comment.renderCommentsDiv(comments)
     } else {
       $(".comments").text("There are no comments for this post")
     }
   })
 }
-Comment.renderComments = function(comments){
+Comment.renderCommentsDiv = function(comments){
   comments.forEach((comment) => {
     c = new Comment(comment)
     $(".comments").append(c.renderComment())
   })
 }
 Comment.saveComment = function() {
-  let newContent = $("#new-comment-content").text()
-//   $.post('/games', gameData, function(game) {
-//     currentGame = game.data.id;
-//     $('#games').append(`<button id="gameid-${game.data.id}">${game.data.id}</button><br>`);
-//     $("#gameid-" + game.data.id).on('click', () => reloadGame(game.data.id));
-//   });
-  $.ajax({
-    type: 'post',
-    url: Comment.baseURL,
-    data: {comment: {content: newContent, user_id: Comment.userID, post_id: Comment.postID}}
+  let $form = $(".comment-form")
+  let action = $form.attr("action")
+  let formData = $form.serialize()
+  $.post(action, formData, (comment) => {
+    Comment.renderCommentsDiv([comment])
   })
 }
 Comment.newCommentForm = function(){
