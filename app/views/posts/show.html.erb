@@ -29,6 +29,6 @@
 </script>
 <script id="comment-form-template" type="text/x-handlebars-template">
   <form action="/posts/{{post.id}}/comments/{{#if id}}{{id}}{{/if}}" class="comment-form">
-  <label for='content'>content:</label><textarea name='content', cols="100", rows="10"></textarea>
-  <div><input name="commit" type="submit" value="Create Comment" /></div>
+  <label for='content'>content:</label><textarea id='new-comment-content' name='content', cols="100", rows="10"></textarea>
+  <div><input id="create-comment" name="commit" type="submit" value="Create Comment" /></div>
 </script>

@@ -13,16 +13,27 @@ class Comment {
     return Comment.commentFormTemplate(this)
   }
 }
-Comment.getComments = function() {
-  $.get(getAddress, (comments) => {
+Comment.getComments = () => {
+  $.get(Comment.getAddress, (comments) => {
     if(comments.length) {
-      comments.forEach((comment) => {
-      c = new Comment(comment)
-      $(".comments").append(c.renderComment())})
+      Comment.postComments(comments)
     } else {
       $(".comments").text("There are no comments for this post")
     }
   })
+}
+Comment.postComments = function(comments){
+  comments.forEach((comment) => {
+    c = new Comment(comment)
+    $(".comments").append(c.renderComment())
+  })
+}
+Comment.saveComment = function() {
+  let newContent = $("#new-comment-content").text()
+  $.post(Comment.saveAddress, {comment: {content: newContent}}, () => {
+
+  })
+  this.postComments()
 }
 Comment.newCommentForm = function(){
   let newComment = new Comment({user: {id:Comment.userID},post: {id: Comment.postID}}) 
@@ -38,7 +49,8 @@ Comment.renderAttributes = function(){
   Comment.userID = $(".user-link").attr("href").slice(-1)
   Comment.getAddress = $('.get-comments').attr("action")
   let digit = new RegExp("(\\d)") 
-  Comment.postID = Comment.getAddress.split(digit)[1]
+  Comment.postID = this.getAddress.split(digit)[1]
+  Comment.saveAddress = this.getAddress
 }
 $(
   function() {
@@ -46,6 +58,10 @@ $(
     Comment.renderAttributes()
     $('#new-comment-button').on("click", function(){
       Comment.newCommentForm()
+    })
+    $("#create-comment").on("submit", function(e){
+      e.preventDefault()
+      Comment.saveComment()
     })
     $('.get-comments').on("submit", function(e){
       e.preventDefault()
