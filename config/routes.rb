@@ -8,10 +8,10 @@ Rails.application.routes.draw do
   get 'users/new' => 'static#signup'
   resources :posts, except: [:edit] do
     resources :comments, only: [:create, :update, :destroy, :index]
-    resources :appointments, only: [:new, :create, :update, :destroy, :index]
+    resources :appointments, only: [:new, :create, :update, :destroy]
   end
   get 'appointments/available' => 'appointments#available', as: "available_appointments"
-  resources :appointments, only: [:show, :index] do
+  resources :appointments, only: [:show] do
     resources :volunteers, only: [:create, :update, :destroy]
   end
 end
