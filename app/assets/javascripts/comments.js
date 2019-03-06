@@ -10,7 +10,7 @@ class Comment {
     return Comment.template(this)
   }
   renderForm(){
-    return Comment.formTemplate(this)
+    return Comment.newTemplate(this)
   }
 }
 Comment.getComments = function() {
@@ -44,13 +44,14 @@ Comment.renderCommentsDiv = function(comments){
   if(!$(".comment-content").length){this.commentsDiv.empty()}
   comments.forEach((comment) => {
     c = new this(comment)
+    // need some logic about if it was the current user's comment so it can be an edit form
     this.commentsDiv.append(c.renderComment())
   })
   if(!$(".comments-clear").length){this.addClearButton()}
 }
 Comment.saveComment = function() {
-  let action = this.commentForm.attr("action")
-  let formData = this.commentForm.serialize()
+  let action = this.newForm.attr("action")
+  let formData = this.newForm.serialize()
   $.post(action, formData, (comment) => {
     this.renderCommentsDiv([comment])
   })
@@ -58,15 +59,17 @@ Comment.saveComment = function() {
 }
 Comment.newCommentForm = function() { 
   this.newCommentDiv.html(new Comment().renderForm())
-  this.commentForm = $(".comment-form") //created above ^
-  this.commentForm.on("submit", (e) => {
+  this.newForm = $(".new-comment-form") //created above ^
+  this.newForm.on("submit", (e) => {
     e.preventDefault()
     this.saveComment()
   })
 }
 Comment.renderTemplates = function(){
   this.template = Handlebars.compile(document.getElementById("comment-template").innerHTML)
-  this.formTemplate = Handlebars.compile(document.getElementById("comment-form-template").innerHTML)
+  this.editTemplate = Handlebars.compile(document.getElementById("edit-comment-template").innerHTML)
+  this.newTemplate = Handlebars.compile(document.getElementById("new-form-template").innerHTML)
+  this.updateTemplate = Handlebars.compile(document.getElementById("update-form-template").innerHTML)
 }
 Comment.renderAttributes = function(){
   this.userID = $(".user-link").attr("href").slice(-1)

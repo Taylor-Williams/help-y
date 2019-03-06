@@ -22,11 +22,27 @@
     </div>
   </div>
 </script>
-<script id="comment-form-template" type="text/x-handlebars-template">
+<script id="edit-comment-template" type="text/x-handlebars-template">
+  <div class="comment-content">
+    <h4>{{content}}</h4>
+    <div class="comment-data">
+      written by: <a href="/users/{{user.id}}">{{user.name}}</a>, last edited: {{updated_at}}
+    </div>
+  </div>
+</script>
+<script id="new-form-template" type="text/x-handlebars-template">
+  <form action="/posts/<%=@post.id%>/comments" method="post" class="new-comment-form">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
+  <input type="hidden" name="comment[user_id]" value="<%= current_user %>">
+  <label for='comment[content]'>content:</label><textarea class="comment-content-text" name='comment[content]', cols="100", rows="10"></textarea>
+  <p><input id="create-comment" type="submit" value="Create Comment" /></p>
+</script>
+<script id="update-form-template" type="text/x-handlebars-template">
   <form action="/posts/<%=@post.id%>/comments" method="post" class="comment-form">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
   <input type="hidden" name="comment[user_id]" value="<%= current_user %>">
-  <label for='comment[content]'>content:</label><textarea id="comment-content-text" name='comment[content]', cols="100", rows="10"></textarea>
+  <label for='comment[content]'>content:</label><textarea class="comment-content-text" name='comment[content]', cols="100", rows="10"></textarea>
   <p><input id="create-comment" type="submit" value="Create Comment" /></p>
 </script>
