@@ -1,5 +1,5 @@
 class Comment {
-  constructor(attributes) {
+  constructor(attributes = {}) {
     this.user = attributes.user
     this.content = attributes.content
     this.id = attributes.id
@@ -18,14 +18,14 @@ Comment.getComments = () => {
     if(comments.length) {
       Comment.renderCommentsDiv(comments)
     } else {
-      $(".comments").text("There are no comments for this post")
+      Comment.commentsDiv.text("There are no comments for this post")
     }
   })
 }
 Comment.renderCommentsDiv = function(comments){
   comments.forEach((comment) => {
     c = new Comment(comment)
-    $(".comments").append(c.renderComment())
+    Comment.commentsDiv.append(c.renderComment())
   })
 }
 Comment.saveComment = function() {
@@ -36,9 +36,12 @@ Comment.saveComment = function() {
     Comment.renderCommentsDiv([comment])
   })
 }
-Comment.newCommentForm = function(){
-  let newComment = new Comment({user: {id:Comment.userID},post: {id: Comment.postID}}) 
-  $('#new-comment').html(newComment.renderForm())
+Comment.newCommentForm = function(){ 
+  $('#new-comment').html(new Comment().renderForm())
+  $("#create-comment").on("submit", function(e){
+    e.preventDefault()
+    Comment.saveComment()
+  })
 }
 Comment.renderTemplates = function(){
   Comment.source = document.getElementById("comment-template").innerHTML
@@ -49,6 +52,7 @@ Comment.renderTemplates = function(){
 Comment.renderAttributes = function(){
   Comment.userID = $(".user-link").attr("href").slice(-1)
   Comment.baseURL = $('.get-comments').attr("action") // '/posts/:id/comments'
+  Comment.commentsDiv = $(".comments")
   let digit = new RegExp("(\\d)") 
   Comment.postID = this.baseURL.split(digit)[1] // the id from the above url
 }
@@ -58,10 +62,6 @@ $(
     Comment.renderAttributes()
     $('#new-comment-button').on("click", function(){
       Comment.newCommentForm()
-    })
-    $("#create-comment").on("submit", function(e){
-      e.preventDefault()
-      Comment.saveComment()
     })
     $('.get-comments').on("submit", function(e){
       e.preventDefault()
