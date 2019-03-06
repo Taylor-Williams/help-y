@@ -10,7 +10,7 @@ class Comment {
     return Comment.template(this)
   }
   renderForm(){
-    return Comment.commentFormTemplate(this)
+    return Comment.formTemplate(this)
   }
 }
 Comment.getComments = function() {
@@ -47,9 +47,8 @@ Comment.renderCommentsDiv = function(comments){
   if(!$(".comments-clear").length){this.addClearButton()}
 }
 Comment.saveComment = function() {
-  let $form = Comment.commentForm
-  let action = $form.attr("action")
-  let formData = $form.serialize()
+  let action = this.commentForm.attr("action")
+  let formData = this.commentForm.serialize()
   $.post(action, formData, (comment) => {
     this.renderCommentsDiv([comment])
   })
@@ -57,17 +56,15 @@ Comment.saveComment = function() {
 }
 Comment.newCommentForm = function() { 
   this.newCommentDiv.html(new Comment().renderForm())
-  this.commentForm = $(".comment-form")
-  this.commentForm.on("submit", function(e){
+  this.commentForm = $(".comment-form") //created above ^
+  this.commentForm.on("submit", (e) => {
     e.preventDefault()
     this.saveComment()
   })
 }
 Comment.renderTemplates = function(){
-  this.source = document.getElementById("comment-template").innerHTML
-  this.template = Handlebars.compile(Comment.source)
-  this.commentFormSource = document.getElementById("comment-form-template").innerHTML
-  this.commentFormTemplate = Handlebars.compile(Comment.commentFormSource)
+  this.template = Handlebars.compile(document.getElementById("comment-template").innerHTML)
+  this.formTemplate = Handlebars.compile(document.getElementById("comment-form-template").innerHTML)
 }
 Comment.renderAttributes = function(){
   this.userID = $(".user-link").attr("href").slice(-1)
