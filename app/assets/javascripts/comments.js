@@ -24,19 +24,19 @@ Comment.getComments = function() {
 }
 Comment.clearComments = function() {
   this.commentsDiv.empty()
-  this.removeButton.remove()
+  this.removeClearButton()
 }
 Comment.addClearButton = function() {
-  let htmlString = "<input id=\"comments-clear\" type=\"submit\" value=\"Clear Comments\"></input>"
+  let htmlString = "<input class=\"comments-clear\" type=\"submit\" value=\"Clear Comments\"></input>"
   this.getCommentsForm.append(htmlString)
-  this.removeButton = $("#comments-clear")
-  this.removeButton.on("click", (e) => {
+  this.clearButton = $(".comments-clear")
+  this.clearButton.on("click", (e) => {
     e.preventDefault()
-    Comment.clearComments()
+    this.clearComments()
   })
 }
-Comment.removeClearButton = () => {
-  this.removeButton.remove()
+Comment.removeClearButton = function() {
+  this.clearButton.remove()
 } 
 Comment.renderCommentsDiv = function(comments){
   this.commentsDiv.text("")
@@ -44,40 +44,40 @@ Comment.renderCommentsDiv = function(comments){
     c = new this(comment)
     this.commentsDiv.append(c.renderComment())
   })
-  this.addClearButton()
+  if(!$(".comments-clear").length){this.addClearButton()}
 }
 Comment.saveComment = function() {
   let $form = Comment.commentForm
   let action = $form.attr("action")
   let formData = $form.serialize()
   $.post(action, formData, (comment) => {
-    Comment.renderCommentsDiv([comment])
+    this.renderCommentsDiv([comment])
   })
-  Comment.newCommentDiv.empty()
+  this.newCommentDiv.empty()
 }
 Comment.newCommentForm = function() { 
-  Comment.newCommentDiv.html(new Comment().renderForm())
-  Comment.commentForm = $(".comment-form")
-  Comment.commentForm.on("submit", function(e){
+  this.newCommentDiv.html(new Comment().renderForm())
+  this.commentForm = $(".comment-form")
+  this.commentForm.on("submit", function(e){
     e.preventDefault()
-    Comment.saveComment()
+    this.saveComment()
   })
 }
 Comment.renderTemplates = function(){
-  Comment.source = document.getElementById("comment-template").innerHTML
-  Comment.template = Handlebars.compile(Comment.source)
-  Comment.commentFormSource = document.getElementById("comment-form-template").innerHTML
-  Comment.commentFormTemplate = Handlebars.compile(Comment.commentFormSource)
+  this.source = document.getElementById("comment-template").innerHTML
+  this.template = Handlebars.compile(Comment.source)
+  this.commentFormSource = document.getElementById("comment-form-template").innerHTML
+  this.commentFormTemplate = Handlebars.compile(Comment.commentFormSource)
 }
 Comment.renderAttributes = function(){
-  Comment.userID = $(".user-link").attr("href").slice(-1)
-  Comment.getCommentsForm = $('.get-comments')
-  Comment.newCommentDiv = $('#new-comment')
-  Comment.newCommentButton = $('#new-comment-button')
-  Comment.baseURL = Comment.getCommentsForm.attr("action") // '/posts/:id/comments'
-  Comment.commentsDiv = $(".comments")
+  this.userID = $(".user-link").attr("href").slice(-1)
+  this.getCommentsForm = $('.get-comments')
+  this.newCommentDiv = $('#new-comment')
+  this.newCommentButton = $('#new-comment-button')
+  this.baseURL = Comment.getCommentsForm.attr("action") // '/posts/:id/comments'
+  this.commentsDiv = $(".comments")
   let digit = new RegExp("(\\d)") 
-  Comment.postID = this.baseURL.split(digit)[1] // the id from the above url
+  this.postID = this.baseURL.split(digit)[1] // the id from the above url
 }
 $(
   function() {
