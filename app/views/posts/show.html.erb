@@ -12,15 +12,3 @@
   <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 <%= button_to "Look at all of my appointments", post_appointments_path(@post), method: :get %>
-
-<script type="text/javascript">
-$(
-  $('.getComments').on("submit", (e) => {
-    e.preventDefault()
-    address = $('.getComments').attr("action")
-    $.get(address, (comments) => {
-      comments.forEach((comment) => {$(".comments").append(comment.content)})
-    })
-  })
-)
-</script>
