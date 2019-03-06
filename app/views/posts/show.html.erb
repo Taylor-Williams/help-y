@@ -15,9 +15,9 @@
 
 <script id="comment-template" type="text/x-handlebars-template">
   <div class="comment-content">
-    <h1>{{content}}</h1>
-    <div class="comment-user">
-      <a href="/users/{{user.id}}">{{user.name}}</a>
+    <h4>{{content}}</h4>
+    <div class="comment-data">
+      written by: <a href="/users/{{user.id}}">{{user.name}}</a>, last edited: {{updated_at}}
     </div>
   </div>
 </script>
