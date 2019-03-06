@@ -12,3 +12,12 @@
   <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 <%= button_to "Look at all of my appointments", post_appointments_path(@post), method: :get %>
+
+<script id="comment-template" type="text/x-handlebars-template">
+  <div class="entry">
+    <h1>{{title}}</h1>
+    <div class="body">
+      {{body}}
+    </div>
+  </div>
+</script>
