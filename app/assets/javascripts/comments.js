@@ -13,37 +13,38 @@ class Comment {
     return Comment.commentFormTemplate(this)
   }
 }
-Comment.getComments = () => {
-  $.get(Comment.baseURL, (comments) => {
+Comment.getComments = function() {
+  $.get(this.baseURL, (comments) => {
     if(comments.length) {
-      Comment.renderCommentsDiv(comments)
+      this.renderCommentsDiv(comments)
     } else {
-      Comment.commentsDiv.text("There are no comments for this post")
+      this.commentsDiv.text("There are no comments for this post")
     }
   })
 }
-Comment.clearComments = () => {
-  Comment.commentsDiv.empty()
-  Comment.removeButton.remove()
+Comment.clearComments = function() {
+  this.commentsDiv.empty()
+  this.removeButton.remove()
 }
-Comment.addClearButton = () => {
-  Comment.getCommentsForm.append("<input id=\"comments-clear\" type=\"submit\" value=\"Clear Comments\"></input>")
-  Comment.removeButton = $("#comments-clear")
-  Comment.removeButton.on("click", (e) => {
+Comment.addClearButton = function() {
+  let htmlString = "<input id=\"comments-clear\" type=\"submit\" value=\"Clear Comments\"></input>"
+  this.getCommentsForm.append(htmlString)
+  this.removeButton = $("#comments-clear")
+  this.removeButton.on("click", (e) => {
     e.preventDefault()
     Comment.clearComments()
   })
 }
 Comment.removeClearButton = () => {
-  Comment.removeButton.remove()
+  this.removeButton.remove()
 } 
 Comment.renderCommentsDiv = function(comments){
-  Comment.commentsDiv.text("")
+  this.commentsDiv.text("")
   comments.forEach((comment) => {
-    c = new Comment(comment)
-    Comment.commentsDiv.append(c.renderComment())
+    c = new this(comment)
+    this.commentsDiv.append(c.renderComment())
   })
-  Comment.addClearButton()
+  this.addClearButton()
 }
 Comment.saveComment = function() {
   let $form = Comment.commentForm
@@ -54,7 +55,7 @@ Comment.saveComment = function() {
   })
   Comment.newCommentDiv.empty()
 }
-Comment.newCommentForm = function(){ 
+Comment.newCommentForm = function() { 
   Comment.newCommentDiv.html(new Comment().renderForm())
   Comment.commentForm = $(".comment-form")
   Comment.commentForm.on("submit", function(e){
@@ -72,6 +73,7 @@ Comment.renderAttributes = function(){
   Comment.userID = $(".user-link").attr("href").slice(-1)
   Comment.getCommentsForm = $('.get-comments')
   Comment.newCommentDiv = $('#new-comment')
+  Comment.newCommentButton = $('#new-comment-button')
   Comment.baseURL = Comment.getCommentsForm.attr("action") // '/posts/:id/comments'
   Comment.commentsDiv = $(".comments")
   let digit = new RegExp("(\\d)") 
@@ -81,7 +83,7 @@ $(
   function() {
     Comment.renderTemplates()
     Comment.renderAttributes()
-    $('#new-comment-button').on("click", function(){
+    Comment.newCommentButton.on("click", function(){
       Comment.newCommentForm()
     })
     Comment.getCommentsForm.on("submit", function(e){
