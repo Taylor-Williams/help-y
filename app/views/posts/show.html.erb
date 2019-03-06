@@ -3,6 +3,8 @@
 <% else %>
   <%= render partial: 'display_info', locals: {post: @post} %>
 <% end %>
+<div class="comments"></div>
+<%= button_to "Load Comments", post_comments_path(@post), {method: :get, form_class: "getComments"} %>
 <%= content_tag(:h3, "Volunteer Opportunities") unless @appointments.blank? %>
 <%= render partial: 'appointments/post_appointment', collection: @appointments, as: :appointment %><br>
 <% if is_current_user?(@post.user) %>
@@ -10,3 +12,15 @@
   <%= button_to 'Delete Post', post_path(@post), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
 <%= button_to "Look at all of my appointments", post_appointments_path(@post), method: :get %>
+
+<script type="text/javascript">
+$(
+  $('.getComments').on("submit", (e) => {
+    e.preventDefault()
+    address = $('.getComments').attr("action")
+    $.get(address, (comments) => {
+      comments.forEach((comment) => {$(".comments").append(comment.content)})
+    })
+  })
+)
+</script>
