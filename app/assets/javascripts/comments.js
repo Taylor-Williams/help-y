@@ -39,7 +39,10 @@ Comment.removeClearButton = function() {
   this.clearButton.remove()
 } 
 Comment.renderCommentsDiv = function(comments){
-  this.commentsDiv.text("")
+  let oldComments = $(".comment-content")
+  if(!$(".comment-content").length){
+    this.commentsDiv.text("")
+  }
   comments.forEach((comment) => {
     c = new this(comment)
     this.commentsDiv.append(c.renderComment())
