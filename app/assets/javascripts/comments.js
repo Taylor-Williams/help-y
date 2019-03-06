@@ -14,23 +14,28 @@ class Comment {
   }
 }
 Comment.getComments = () => {
-  $.get(Comment.getAddress, (comments) => {
+  $.get(Comment.baseURL, (comments) => {
     if(comments.length) {
-      Comment.postComments(comments)
+      Comment.renderComments(comments)
     } else {
       $(".comments").text("There are no comments for this post")
     }
   })
 }
-Comment.postComments = function(comments){
+Comment.renderComments = function(comments){
   comments.forEach((comment) => {
     c = new Comment(comment)
     $(".comments").append(c.renderComment())
   })
 }
-Comment.saveComment = function() {
+Comment.postComment = function() {
   let newContent = $("#new-comment-content").text()
-  $.post(Comment.saveAddress, {comment: {content: newContent}}, () => {
+  $.post(Comment.baseURL, {comment: {content: newContent}}, () => {
+    //   $.post('/games', gameData, function(game) {
+//     currentGame = game.data.id;
+//     $('#games').append(`<button id="gameid-${game.data.id}">${game.data.id}</button><br>`);
+//     $("#gameid-" + game.data.id).on('click', () => reloadGame(game.data.id));
+//   });
 
   })
   this.postComments()
@@ -47,10 +52,9 @@ Comment.renderTemplates = function(){
 }
 Comment.renderAttributes = function(){
   Comment.userID = $(".user-link").attr("href").slice(-1)
-  Comment.getAddress = $('.get-comments').attr("action")
+  Comment.baseURL = $('.get-comments').attr("action") // '/posts/:id/comments'
   let digit = new RegExp("(\\d)") 
-  Comment.postID = this.getAddress.split(digit)[1]
-  Comment.saveAddress = this.getAddress
+  Comment.postID = this.baseURL.split(digit)[1] // the id from the above url
 }
 $(
   function() {
@@ -69,3 +73,19 @@ $(
     })
   }
 )
+// some logic for later: when there is no comment being shown there is no "#comment-content"
+// in (".comments"). there may be some inner html.
+// if (currentGame) {
+//   $.ajax({
+//     type: 'PATCH',
+//     url: `/games/${currentGame}`,
+//     data: gameData
+//   });
+// } else {
+//   $.post('/games', gameData, function(game) {
+//     currentGame = game.data.id;
+//     $('#games').append(`<button id="gameid-${game.data.id}">${game.data.id}</button><br>`);
+//     $("#gameid-" + game.data.id).on('click', () => reloadGame(game.data.id));
+//   });
+// }
+// copied from tictactoe lab
