@@ -4,7 +4,8 @@
   <%= render partial: 'display_info', locals: {post: @post} %>
 <% end %>
 <div class="comments"></div>
-<%= button_to "Load Comments", post_comments_path(@post), {method: :get, form_class: "getComments"} %>
+<%= button_to "Load Comments", post_comments_path(@post), {method: :get, form_class: "get-comments"} %>
+<div id="new-comment"></div>
 <%= content_tag(:h3, "Volunteer Opportunities") unless @appointments.blank? %>
 <%= render partial: 'appointments/post_appointment', collection: @appointments, as: :appointment %><br>
 <% if is_current_user?(@post.user) %>
@@ -17,7 +18,16 @@
   <div class="comment-content">
     <h4>{{content}}</h4>
     <div class="comment-data">
-      written by: <a href="/users/{{user.id}}">{{user.name}}</a>, last edited: {{updated_at}}
+      {{#if userID === user.id}}
+
+      {{else}}
+        written by: <a href="/users/{{user.id}}">{{user.name}}</a>, last edited: {{updated_at}}
+      {{/if}}
     </div>
   </div>
+</script>
+<script id="comment-form-template" type="text/x-handlebars-template">
+  <form action="/posts/{{post.id}}/comments/{{#if id}}{{id}}{{/if}}" class="comment-form">
+  <label for='content'>content:</label><textarea name='content', cols="100", rows="10"></textarea>
+  <div><input name="commit" type="submit" value="Create Comment" /></div>
 </script>
