@@ -22,7 +22,11 @@ Comment.getComments = () => {
     }
   })
 }
+Comment.clearComments = () => {
+  Comment.commentsDiv.clear()
+}
 Comment.renderCommentsDiv = function(comments){
+  Comment.commentsDiv.text("")
   comments.forEach((comment) => {
     c = new Comment(comment)
     Comment.commentsDiv.append(c.renderComment())
