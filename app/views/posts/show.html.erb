@@ -14,10 +14,10 @@
 <%= button_to "Look at all of my appointments", post_appointments_path(@post), method: :get %>
 
 <script id="comment-template" type="text/x-handlebars-template">
-  <div class="entry">
-    <h1>{{title}}</h1>
-    <div class="body">
-      {{body}}
+  <div class="comment-content">
+    <h1>{{content}}</h1>
+    <div class="comment-user">
+      <a href="/users/{{user.id}}">{{user.name}}</a>
     </div>
   </div>
 </script>
