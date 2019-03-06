@@ -29,16 +29,18 @@ Comment.renderCommentsDiv = function(comments){
   })
 }
 Comment.saveComment = function() {
-  let $form = $(".comment-form")
+  let $form = Comment.commentForm
   let action = $form.attr("action")
   let formData = $form.serialize()
   $.post(action, formData, (comment) => {
     Comment.renderCommentsDiv([comment])
   })
+  $('#new-comment').empty()
 }
 Comment.newCommentForm = function(){ 
   $('#new-comment').html(new Comment().renderForm())
-  $(".comment-form").on("submit", function(e){
+  Comment.commentForm = $(".comment-form")
+  Comment.commentForm.on("submit", function(e){
     e.preventDefault()
     Comment.saveComment()
   })
