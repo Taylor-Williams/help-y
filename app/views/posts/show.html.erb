@@ -3,7 +3,7 @@
 <% else %>
   <%= render partial: 'display_info', locals: {post: @post} %>
 <% end %>
-<input id="new-comment-button" name="commit" type="submit" value="Add Comment" />
+<input id="new-comment-button" name="commit" type="submit" value="Add New Comment" />
 <div id="new-comment"></div>
 <div class="comments"></div>
 <%= button_to "Load Comments", post_comments_path(@post), {method: :get, form_class: "get-comments"} %>

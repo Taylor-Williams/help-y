@@ -24,6 +24,10 @@ Comment.getComments = function() {
     }
   })
 }
+Comment.newCommentForm = function(){
+  let newComment = new Comment({user: {id:Comment.userID},post: {id: Comment.postID}}) 
+  $('#new-comment').html(newComment.renderForm())
+}
 Comment.renderTemplates = function(){
   Comment.source = document.getElementById("comment-template").innerHTML
   Comment.template = Handlebars.compile(Comment.source)
@@ -40,8 +44,9 @@ $(
   function() {
     Comment.renderTemplates()
     Comment.renderAttributes()
-    let newComment = new Comment({user: {id:Comment.userID},post: {id: Comment.postID}}) 
-    $('#new-comment').html(newComment.renderForm())
+    $('#new-comment-button').on("click", function(){
+      Comment.newCommentForm()
+    })
     $('.get-comments').on("submit", function(e){
       e.preventDefault()
       Comment.getComments()
