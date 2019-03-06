@@ -1,3 +1,11 @@
+class Comment {
+  constructor(attributes){
+    this.user = attributes.user
+    this.content = attributes.content
+    this.post = attributes.post
+  }
+  
+} 
 $(
   () => {
     $('.getComments').on("submit", (e) => {
