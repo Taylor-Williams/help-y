@@ -20,7 +20,7 @@ class Comment {
   }
 }
 Comment.getComments = function() {
-  $.get(this.baseURL, (comments) => {
+  $.get(this.APIURL, (comments) => {
     if(comments.length) {
       this.commentsDiv.empty()
       this.renderCommentsDiv(comments)
@@ -31,7 +31,6 @@ Comment.getComments = function() {
 }
 Comment.clearComments = function() {
   this.commentsDiv.empty()
-  this.clearButton.remove()
 }
 Comment.addClearButton = function() {
   this.getCommentsForm.append(this.clearButtonHTML)
@@ -39,12 +38,14 @@ Comment.addClearButton = function() {
   this.clearButton.on("click", (e) => {
     e.preventDefault()
     this.clearComments()
+    this.clearButton.remove()
   })
 }
 Comment.renderCommentsDiv = function(comments){
   let oldComments = $(".comment-content")
   if(!$(".comment-content").length){this.commentsDiv.empty()}
   comments.forEach((comment) => {
+
     c = new this(comment)
     if(parseInt(c.user.id) === parseInt(this.userID)){
       this.commentsDiv.append(c.renderEditComment())
@@ -111,10 +112,10 @@ Comment.renderAttributes = function(){
   this.getCommentsForm = $('.get-comments')
   this.newCommentDiv = $('#new-comment')
   this.newCommentButton = $('#new-comment-button')
-  this.baseURL = this.getCommentsForm.attr("action") // '/posts/:id/comments'
+  this.APIURL = this.getCommentsForm.attr("action") // '/posts/:id/comments'
   this.commentsDiv = $(".comments")
   let digit = new RegExp("(\\d)") 
-  this.postID = this.baseURL.split(digit)[1] // the id from the above url
+  this.postID = this.APIURL.split(digit)[1] // the id from the above url
 }
 $(
   function() {
