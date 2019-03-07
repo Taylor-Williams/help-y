@@ -39,16 +39,9 @@ class CommentsController < ApplicationController
     if Post.find(params[:post_id])
       @comment = Comment.find(params[:id])
       if @comment.update(comment_params)
-        binding.pry
-        respond_to do |f|
-          f.json {render json: @comment, status: 200}
-          f.html {redirect_to post_path(params[:post_id])}
-        end
+        render json: @comment, status: 200
       else
-        respond_to do |f|
-          f.json {render json: {response: 'invalid comment'}, status: 400}
-          f.html {redirect_to post_path(params[:post_id])}
-        end
+        render json: {response: 'invalid comment'}, status: 400
       end
     end
   end
