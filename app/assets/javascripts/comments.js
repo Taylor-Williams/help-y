@@ -42,19 +42,19 @@ Comment.addClearButton = function() {
   })
 }
 Comment.renderCommentsDiv = function(comments){
-  let oldComments = $(".comment-content")
-  if(!$(".comment-content").length){this.commentsDiv.empty()}
+  this.allComments = $(".comment-content")
+  if(!this.allComments.length){this.clearComments()}
   comments.forEach((comment) => {
-
-    c = new this(comment)
-    if(parseInt(c.user.id) === parseInt(this.userID)){
-      this.commentsDiv.append(c.renderEditComment())
-      this.attachEditListener(c.id)
-    }else{
-      this.commentsDiv.append(c.renderComment())
-    }
+    this.commentsDiv.append(this.getCommentHTML(new this(comment)))
   })
   if(!$(".comments-clear").length){this.addClearButton()}
+}
+Comment.getCommentHTML = function(comment) {
+  if(parseInt(comment.user.id) === parseInt(this.userID)){
+    return comment.renderEditComment()
+  }else{
+    return comment.renderComment()
+  }
 }
 Comment.attachEditListener = (commentID) => {
   editForm = $(`#edit-${commentID}`)
