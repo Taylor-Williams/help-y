@@ -31,20 +31,16 @@ Comment.getComments = function() {
 }
 Comment.clearComments = function() {
   this.commentsDiv.empty()
-  this.removeClearButton()
+  this.clearButton.remove()
 }
 Comment.addClearButton = function() {
-  let htmlString = "<input class=\"comments-clear\" type=\"submit\" value=\"Clear Comments\"></input>"
-  this.getCommentsForm.append(htmlString)
+  this.getCommentsForm.append(this.clearButtonHTML)
   this.clearButton = $(".comments-clear")
   this.clearButton.on("click", (e) => {
     e.preventDefault()
     this.clearComments()
   })
 }
-Comment.removeClearButton = function() {
-  this.clearButton.remove()
-} 
 Comment.renderCommentsDiv = function(comments){
   let oldComments = $(".comment-content")
   if(!$(".comment-content").length){this.commentsDiv.empty()}
@@ -108,6 +104,7 @@ Comment.renderTemplates = function(){
   this.editTemplate = Handlebars.compile(document.getElementById("edit-comment-template").innerHTML)
   this.newTemplate = Handlebars.compile(document.getElementById("new-form-template").innerHTML)
   this.updateTemplate = Handlebars.compile(document.getElementById("update-form-template").innerHTML)
+  this.clearButtonHTML = "<input class=\"comments-clear\" type=\"submit\" value=\"Clear Comments\"></input>"
 }
 Comment.renderAttributes = function(){
   this.userID = $(".user-link").attr("href").slice(-1)
