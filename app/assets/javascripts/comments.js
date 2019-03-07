@@ -33,13 +33,15 @@ Comment.clearComments = function() {
   this.commentsDiv.empty()
 }
 Comment.addClearButton = function() {
-  this.getCommentsForm.append(this.clearButtonHTML)
-  this.clearButton = $(".comments-clear")
-  this.clearButton.on("click", (e) => {
-    e.preventDefault()
-    this.clearComments()
-    this.clearButton.remove()
-  })
+  if(!$(".comments-clear").length){
+    this.getCommentsForm.append(this.clearButtonHTML)
+    this.clearButton = $(".comments-clear")
+    this.clearButton.on("click", (e) => {
+      e.preventDefault()
+      this.clearComments()
+      this.clearButton.remove()
+    })
+  }
 }
 Comment.renderCommentsDiv = function(comments){
   this.allComments = $(".comment-content")
@@ -47,7 +49,8 @@ Comment.renderCommentsDiv = function(comments){
   comments.forEach((comment) => {
     this.commentsDiv.append(this.getCommentHTML(new this(comment)))
   })
-  if(!$(".comments-clear").length){this.addClearButton()}
+  this.addClearButton()
+  this.attachEditListeners()
 }
 Comment.getCommentHTML = function(comment) {
   if(parseInt(comment.user.id) === parseInt(this.userID)){
@@ -56,18 +59,19 @@ Comment.getCommentHTML = function(comment) {
     return comment.renderComment()
   }
 }
-Comment.attachEditListener = (commentID) => {
-  editForm = $(`#edit-${commentID}`)
-  editForm.on("submit", function(e) {
-    e.preventDefault()
-    editform = $(this)
-    commentDiv = editform.parent()
-    action = editform.attr("action")
-    $.get(action, (comment) => {
-      commentDiv.html(new Comment(comment).renderUpdateForm())
-      Comment.attachUpdateListener(commentDiv.children()[0])
-    })
-  })
+Comment.attachEditListeners = () => {
+  editForms = $(".edit_comment_form")
+  console.log(editForms)
+  // editForm.on("submit", function(e) {
+  //   e.preventDefault()
+  //   editform = $(this)
+  //   commentDiv = editform.parent()
+  //   action = editform.attr("action")
+  //   $.get(action, (comment) => {
+  //     commentDiv.html(new Comment(comment).renderUpdateForm())
+  //     Comment.attachUpdateListener(commentDiv.children()[0])
+  //   })
+  // })
 }
 Comment.attachUpdateListener = (updateForm) => {
   $(updateForm).on("submit", (e) => {
