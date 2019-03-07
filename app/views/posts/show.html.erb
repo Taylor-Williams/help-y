@@ -20,17 +20,11 @@
     <div class="comment-data">
       written by: <a href="/users/{{user.id}}">{{user.name}}</a>, last edited: {{updated_at}}
     </div>
-  </div>
-</script>
-<script id="edit-comment-template" type="text/x-handlebars-template">
-  <div class="comment-content" data-comment-id="{{id}}">
-    <h4>{{content}}</h4>
-    <div class="comment-data">
-      written by: you! last edited: {{updated_at}}
-    </div>
-    <form action="/posts/<%=@post.id%>/comments/{{id}}" method="get" class="edit-comment-form" id="edit-{{id}}">
-      <input type="submit" value="Edit Comment" />
-    </form>
+    {{#if id === current_user }}
+      <form action="/posts/<%=@post.id%>/comments/{{id}}" method="get" class="edit-comment-form">
+        <input type="submit" value="Edit Comment" />
+      </form>
+    {{/if}}
   </div>
 </script>
 <script id="new-form-template" type="text/x-handlebars-template">
@@ -42,7 +36,7 @@
   <p><input id="create-comment" type="submit" value="Create Comment" /></p>
 </script>
 <script id="update-form-template" type="text/x-handlebars-template">
-  <form action="/posts/<%=@post.id%>/comments/{{id}}" method="patch" class="update-comment-form" data-comment-id="{{id}}">
+  <form action="/posts/<%=@post.id%>/comments/{{id}}" method="patch" class="update-comment-form">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
   <input type="hidden" name="comment[user_id]" value="<%= current_user %>">
