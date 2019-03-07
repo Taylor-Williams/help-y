@@ -53,7 +53,7 @@ Comment.renderCommentsDiv = function(comments){
     commentID = c.id
     if(parseInt(c.user.id) === parseInt(this.userID)){
       this.commentsDiv.append(c.renderEditComment())
-      $(`#edit-${commentID}`).on("submit", function() => {
+      $(`#edit-${commentID}`).on("submit", function() {
         let action = this.newForm.attr("action")
         $.get(action, (comment) => {
           $(`data-comment-id="${comment.id}"`).html(new Comment(comment).renderUpdateForm())
