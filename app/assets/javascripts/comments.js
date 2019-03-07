@@ -60,18 +60,17 @@ Comment.getCommentHTML = function(comment) {
   }
 }
 Comment.attachEditListeners = () => {
-  editForms = $(".edit_comment_form")
-  console.log(editForms)
-  // editForm.on("submit", function(e) {
-  //   e.preventDefault()
-  //   editform = $(this)
-  //   commentDiv = editform.parent()
-  //   action = editform.attr("action")
-  //   $.get(action, (comment) => {
-  //     commentDiv.html(new Comment(comment).renderUpdateForm())
-  //     Comment.attachUpdateListener(commentDiv.children()[0])
-  //   })
-  // })
+  editForms = $(".edit-comment-form")
+  editForms.on("submit", function(e) {
+    e.preventDefault()
+    editform = $(this)
+    commentDiv = editform.parent()
+    action = editform.attr("action")
+    $.get(action, (comment) => {
+      commentDiv.html(new Comment(comment).renderUpdateForm())
+      Comment.attachUpdateListener(commentDiv.children()[0])
+    })
+  })
 }
 Comment.attachUpdateListener = (updateForm) => {
   $(updateForm).on("submit", (e) => {
@@ -88,14 +87,6 @@ Comment.attachUpdateListener = (updateForm) => {
     })
   })
 }
-Comment.saveComment = function() {
-  let action = this.newForm.attr("action")
-  let formData = this.newForm.serialize()
-  $.post(action, formData, (comment) => {
-    this.renderCommentsDiv([comment])
-  })
-  this.newCommentDiv.empty()
-}
 Comment.newCommentForm = function() { 
   this.newCommentDiv.html(new Comment().renderNewForm())
   this.newForm = $(".new-comment-form") //created above ^
@@ -103,6 +94,14 @@ Comment.newCommentForm = function() {
     e.preventDefault()
     this.saveComment()
   })
+}
+Comment.saveComment = function() {
+  let action = this.newForm.attr("action")
+  let formData = this.newForm.serialize()
+  $.post(action, formData, (comment) => {
+    this.renderCommentsDiv([comment])
+  })
+  this.newCommentDiv.empty()
 }
 Comment.renderTemplates = function(){
   this.template = Handlebars.compile(document.getElementById("comment-template").innerHTML)
