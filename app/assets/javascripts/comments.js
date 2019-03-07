@@ -56,7 +56,7 @@ Comment.renderCommentsDiv = function(comments){
       $(`#edit-${commentID}`).on("submit", function() => {
         let action = this.newForm.attr("action")
         $.get(action, (comment) => {
-          $(`data-comment-id=${comment.id}`).html(new Comment(comment).renderUpdateForm())
+          $(`data-comment-id="${comment.id}"`).html(new Comment(comment).renderUpdateForm())
         })
       })
     }else{

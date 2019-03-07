@@ -18,6 +18,15 @@ class CommentsController < ApplicationController
     end
   end
 
+  def show
+    post = Post.find(params[:post_id])
+    comment = Comment.find(params[:id])
+    if post && comment
+      render json: comment, status: 200
+    else
+      render json: {response: 'invalid Post id'}, status: 400
+    end
+  end
   def index
     post = Post.find(params[:post_id])
     if post
