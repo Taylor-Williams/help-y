@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
   before_action :require_login
+  before_action :find_post
+  before_action :find_comment, only:[:show, :update, :destroy]
   
   def create
     @comment = Comment.new(comment_params)
@@ -59,6 +61,14 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-      params.require(:comment).permit(:user_id, :post_id, :content)
+    params.require(:comment).permit(:user_id, :post_id, :content)
+  end
+  
+  def find_post
+    flash[danger: "not a valid post"] unless post = Post.find(params[:post_id]) 
+  end
+
+  def find_comment
+    flash[danger: "not a valid comment"] unless comment = Comment.find(params[:id])
   end
 end
