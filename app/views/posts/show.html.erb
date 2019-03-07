@@ -27,19 +27,12 @@
     {{/if}}
   </div>
 </script>
-<script id="new-form-template" type="text/x-handlebars-template">
-  <form action="/posts/<%=@post.id%>/comments" method="post" class="new-comment-form">
+<script id="form-template" type="text/x-handlebars-template">
+  <form action="/posts/<%=@post.id%>/comments{{#if id}}{{\/id}}{{/if}}" method="post" class="{{#if id}}{{update}}{{else}}{{new}}{{/if}}-comment-form">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
   <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
   <input type="hidden" name="comment[user_id]" value="<%= current_user %>">
-  <label for='comment[content]'>content:</label><textarea class="comment-content-text" name='comment[content]', cols="100", rows="10"></textarea>
-  <p><input id="create-comment" type="submit" value="Create Comment" /></p>
-</script>
-<script id="update-form-template" type="text/x-handlebars-template">
-  <form action="/posts/<%=@post.id%>/comments/{{id}}" method="patch" class="update-comment-form">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
-  <input type="hidden" name="comment[user_id]" value="<%= current_user %>">
-  <label for='comment[content]'>content:</label><textarea class="comment-content-text" name='comment[content]', cols="100", rows="10">{{content}}</textarea>
-  <p><input class="update-comment" type="submit" value="Update Comment" /></p>
+  <label for='comment[content]'>content:</label>
+  <textarea class="comment-content-text" name='comment[content]', cols="100", rows="10">{{content}}</textarea>
+  <p><input class="{{#if id}}{{update}}{{else}}{{create}}{{/if}}" type="submit" value="{{#if id}}{{Update}}{{else}}{{Create}}{{/if}} Comment" /></p>
 </script>
