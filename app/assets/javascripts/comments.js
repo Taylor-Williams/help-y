@@ -5,18 +5,13 @@ class Comment {
     this.id = attributes.id
     this.post = attributes.post
     this.updated_at = attributes.updated_at
+    this.isCurrentUser = (this.user && this.user.id && parseInt(this.user.id) === parseInt(Comment.userID))
   }
   renderComment() {
     return Comment.template(this)
   }
-  renderEditComment(){
-    return Comment.editTemplate(this)
-  }
-  renderNewForm(){
-    return Comment.newTemplate(this)
-  }
-  renderUpdateForm(){
-    return Comment.updateTemplate(this)
+  renderForm(){
+    return Comment.formTemplate(this)
   }
 }
 Comment.getComments = function() {
@@ -47,17 +42,10 @@ Comment.renderCommentsDiv = function(comments){
   this.allComments = $(".comment-content")
   if(!this.allComments.length){this.clearComments()}
   comments.forEach((comment) => {
-    this.commentsDiv.append(this.getCommentHTML(new this(comment)))
+    this.commentsDiv.append(new this(comment).renderComment())
   })
   this.addClearButton()
   this.attachEditListeners()
-}
-Comment.getCommentHTML = function(comment) {
-  if(parseInt(comment.user.id) === parseInt(this.userID)){
-    return comment.renderEditComment()
-  }else{
-    return comment.renderComment()
-  }
 }
 Comment.attachEditListeners = () => {
   editForms = $(".edit-comment-form")
@@ -67,7 +55,7 @@ Comment.attachEditListeners = () => {
     commentDiv = editform.parent()
     action = editform.attr("action")
     $.get(action, (comment) => {
-      commentDiv.html(new Comment(comment).renderUpdateForm())
+      commentDiv.html(new Comment(comment).renderForm())
       Comment.attachUpdateListener(commentDiv.children()[0])
     })
   })
@@ -83,12 +71,12 @@ Comment.attachUpdateListener = (updateForm) => {
       data: updateData
     }).success((comment) => {
       console.log(comment)
-      $(updateForm).parent().html(new Comment(comment).renderEditComment())
+      $(updateForm).parent().html(new Comment(comment).renderComment())
     })
   })
 }
 Comment.newCommentForm = function() { 
-  this.newCommentDiv.html(new Comment().renderNewForm())
+  this.newCommentDiv.html(new Comment().renderForm())
   this.newForm = $(".new-comment-form") //created above ^
   this.newForm.on("submit", (e) => {
     e.preventDefault()
@@ -105,9 +93,7 @@ Comment.saveComment = function() {
 }
 Comment.renderTemplates = function(){
   this.template = Handlebars.compile(document.getElementById("comment-template").innerHTML)
-  this.editTemplate = Handlebars.compile(document.getElementById("edit-comment-template").innerHTML)
-  this.newTemplate = Handlebars.compile(document.getElementById("new-form-template").innerHTML)
-  this.updateTemplate = Handlebars.compile(document.getElementById("update-form-template").innerHTML)
+  this.formTemplate = Handlebars.compile(document.getElementById("form-template").innerHTML)
   this.clearButtonHTML = "<input class=\"comments-clear\" type=\"submit\" value=\"Clear Comments\"></input>"
 }
 Comment.renderAttributes = function(){
