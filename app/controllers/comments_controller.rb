@@ -4,13 +4,11 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
-      flash[:success] = "Successfully created comment"
       respond_to do |f|
         f.json {render json: @comment, status: 200}
         f.html {redirect_to post_path(params[:post_id])}
       end
     else
-      flash[:danger] = @comment.errors.full_messages.join(", ")
       respond_to do |f|
         f.json {render json: {response: 'invalid comment'}, status: 400}
         f.html {redirect_to post_path(params[:post_id])}
@@ -27,6 +25,7 @@ class CommentsController < ApplicationController
       render json: {response: 'invalid Post id'}, status: 400
     end
   end
+
   def index
     post = Post.find(params[:post_id])
     if post
@@ -37,13 +36,20 @@ class CommentsController < ApplicationController
   end
 
   def update
-    @comment = Comment.find(params[:id])
-    if @comment.update(comment_params)
-      flash[:success] = "Successfully edited comment"
-    else
-      flash[:danger] = @comment.errors.full_messages.join(", ")
+    if Post.find(params[:post_id])
+      @comment = Comment.find(params[:id])
+      if @comment.update(comment_params)
+        respond_to do |f|
+          f.json {render json: @comment, status: 200}
+          f.html {redirect_to post_path(params[:post_id])}
+        end
+      else
+        respond_to do |f|
+          f.json {render json: {response: 'invalid comment'}, status: 400}
+          f.html {redirect_to post_path(params[:post_id])}
+        end
+      end
     end
-    redirect_to post_path(params[:post_id])
   end
 
   def destroy
