@@ -68,13 +68,23 @@ Comment.attachEditListener = (commentID) => {
     action = editform.attr("action")
     $.get(action, (comment) => {
       commentDiv.html(new Comment(comment).renderUpdateForm())
-      Comment.attachUpdateListener(commentDiv)
+      Comment.attachUpdateListener(commentDiv.children()[0])
     })
   })
 }
-Comment.attachUpdateListener = (commentDiv) => {
-  commentDiv.on("submit", (e) => {
+Comment.attachUpdateListener = (updateForm) => {
+  $(updateForm).on("submit", (e) => {
     e.preventDefault()
+    let updateAction = $(updateForm).attr("action")
+    let updateData = $(updateForm).serialize()
+    $.ajax({
+      type: 'PATCH',
+      url: updateAction,
+      data: updateData
+    }).success((comment) => {
+      console.log(comment)
+      $(updateForm).parent().html(new Comment(comment).renderEditComment())
+    })
   })
 }
 Comment.saveComment = function() {
