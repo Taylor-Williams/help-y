@@ -9,8 +9,14 @@ class Comment {
   renderComment() {
     return Comment.template(this)
   }
-  renderForm(){
+  renderEditComment(){
+    return Comment.editTemplate(this)
+  }
+  renderNewForm(){
     return Comment.newTemplate(this)
+  }
+  renderUpdateForm(){
+    return Comment.updateTemplate(this)
   }
 }
 Comment.getComments = function() {
@@ -44,8 +50,13 @@ Comment.renderCommentsDiv = function(comments){
   if(!$(".comment-content").length){this.commentsDiv.empty()}
   comments.forEach((comment) => {
     c = new this(comment)
-    // need some logic about if it was the current user's comment so it can be an edit form
-    this.commentsDiv.append(c.renderComment())
+    commentID = c.id
+    if(parseInt(c.user.id) === parseInt(this.userID)){
+      this.commentsDiv.append(c.renderEditComment())
+      $(`#edit-comment-${commentID}`).on("click", () => {})
+    }else{
+      this.commentsDiv.append(c.renderComment())
+    }
   })
   if(!$(".comments-clear").length){this.addClearButton()}
 }
