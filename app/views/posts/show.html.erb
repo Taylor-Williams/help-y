@@ -26,8 +26,11 @@
   <div class="comment-content" data-comment-id="{{id}}">
     <h4>{{content}}</h4>
     <div class="comment-data">
-      <input id="edit-comment-{{id}}" type="submit" value="Edit Comment" /> written by: you!
+      written by: you!, last edited: {{updated_at}}
     </div>
+    <form action="/posts/<%=@post.id%>/comments/{{id}}" method="get" class="edit-comment-form" id="edit-{{id}}">
+      <input type="submit" value="Edit Comment" />
+    </form>
   </div>
 </script>
 <script id="new-form-template" type="text/x-handlebars-template">
