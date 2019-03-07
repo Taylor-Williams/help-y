@@ -50,20 +50,32 @@ Comment.renderCommentsDiv = function(comments){
   if(!$(".comment-content").length){this.commentsDiv.empty()}
   comments.forEach((comment) => {
     c = new this(comment)
-    commentID = c.id
     if(parseInt(c.user.id) === parseInt(this.userID)){
       this.commentsDiv.append(c.renderEditComment())
-      $(`#edit-${commentID}`).on("submit", function() {
-        let action = this.newForm.attr("action")
-        $.get(action, (comment) => {
-          $(`data-comment-id="${comment.id}"`).html(new Comment(comment).renderUpdateForm())
-        })
-      })
+      this.attachEditListener(c.id)
     }else{
       this.commentsDiv.append(c.renderComment())
     }
   })
   if(!$(".comments-clear").length){this.addClearButton()}
+}
+Comment.attachEditListener = (commentID) => {
+  editForm = $(`#edit-${commentID}`)
+  editForm.on("submit", function(e) {
+    e.preventDefault()
+    editform = $(this)
+    commentDiv = editform.parent()
+    action = editform.attr("action")
+    $.get(action, (comment) => {
+      commentDiv.html(new Comment(comment).renderUpdateForm())
+      Comment.attachUpdateListener(commentDiv)
+    })
+  })
+}
+Comment.attachUpdateListener = (commentDiv) => {
+  commentDiv.on("submit", (e) => {
+    e.preventDefault()
+  })
 }
 Comment.saveComment = function() {
   let action = this.newForm.attr("action")
@@ -74,7 +86,7 @@ Comment.saveComment = function() {
   this.newCommentDiv.empty()
 }
 Comment.newCommentForm = function() { 
-  this.newCommentDiv.html(new Comment().renderForm())
+  this.newCommentDiv.html(new Comment().renderNewForm())
   this.newForm = $(".new-comment-form") //created above ^
   this.newForm.on("submit", (e) => {
     e.preventDefault()
