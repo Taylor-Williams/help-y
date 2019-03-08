@@ -1,3 +1,3 @@
 class AppointmentPostSerializer < ActiveModel::Serializer
-  attributes :id
+  attributes :id, :title
 end
