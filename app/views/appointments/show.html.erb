@@ -1,2 +1,2 @@
 <%= render partial: 'appointments/display_info', locals: { appointment: @appointment } %>
-<%= render 'volunteers/signup' if @appointment.available? %>
+<%= render 'volunteers/signup' if @appointment.available? && !is_current_user?(@appointment.post.user) %>
