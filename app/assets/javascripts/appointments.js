@@ -1,29 +1,30 @@
 class Appointments {
   constructor(attributes = {}) {
     this.user = attributes.user
-    this.content = attributes.content
-    this.id = attributes.id
     this.post = attributes.post
-    this.updated_at = attributes.updated_at
-    this.isCurrentUser = (this.user && this.user.id && parseInt(this.user.id) === parseInt(Comment.userID))
+    this.id = attributes.id
+    this.info = attributes.info
+    this.start_date = attributes.start_date
+    this.end_date = attributes.end_date
+    this.isCurrentUser = (parseInt(this.user.id) === parseInt(Appointment.userID))
   }
-  renderComment() {
-    return Comment.template(this)
+  renderAppointment() {
+    return Appointments.template(this)
   }
   renderForm(){
-    return Comment.formTemplate(this)
+    return Appointments.formTemplate(this)
   }
 }
 $(
   function() {
-    Comment.renderTemplates()
-    Comment.renderAttributes()
-    Comment.newCommentButton.on("click", function(){
-      Comment.newCommentForm()
+    Appointments.renderTemplates()
+    Appointments.renderAttributes()
+    Appointments.newAppointmentsButton.on("click", function(){
+      Appointments.newAppointmentsForm()
     })
-    Comment.getCommentsForm.on("submit", function(e){
+    Appointments.getAppointmentssForm.on("submit", function(e){
       e.preventDefault()
-      Comment.getComments()
+      Appointments.getAppointmentss()
     })
   }
 )
