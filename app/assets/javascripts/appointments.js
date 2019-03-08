@@ -16,10 +16,12 @@ class Appointment {
   }
 }
 Appointment.renderTemplates = function(){
-
+  this.template = Handlebars.compile(document.getElementById("appointment-template").innerHTML)
+  this.formTemplate = Handlebars.compile(document.getElementById("form-template").innerHTML)
 }
 Appointment.renderAttributes = function(){
-
+  this.appointmentsDiv = $('.appointments')
+  this.userID = $(".user-link").attr("href").slice(-1)
 }
 $(
   function() {
