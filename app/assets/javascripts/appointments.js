@@ -1,4 +1,4 @@
-class Appointments {
+class Appointment {
   constructor(attributes = {}) {
     this.user = attributes.user
     this.post = attributes.post
@@ -9,22 +9,25 @@ class Appointments {
     this.isCurrentUser = (parseInt(this.user.id) === parseInt(Appointment.userID))
   }
   renderAppointment() {
-    return Appointments.template(this)
+    return Appointment.template(this)
   }
   renderForm(){
-    return Appointments.formTemplate(this)
+    return Appointment.formTemplate(this)
   }
+}
+Appointment.renderTemplates = function(){
+
+}
+Appointment.renderAttributes = function(){
+
 }
 $(
   function() {
-    Appointments.renderTemplates()
-    Appointments.renderAttributes()
-    Appointments.newAppointmentsButton.on("click", function(){
-      Appointments.newAppointmentsForm()
-    })
-    Appointments.getAppointmentssForm.on("submit", function(e){
+    Appointment.renderTemplates()
+    Appointment.renderAttributes()
+    Appointment.getAppointmentsForm.on("submit", function(e){
       e.preventDefault()
-      Appointments.getAppointmentss()
+      Appointment.getAppointments()
     })
   }
 )
