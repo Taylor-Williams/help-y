@@ -1,8 +1,8 @@
 <%= content_tag(:div, class:["new_post_appointment_form"]) do %>
-  <%= form_for([@post, appointment]) do |f| %>
+  <%= form_for([@post, @appointment]) do |f| %>
     <%= f.hidden_field :post_id, :value => @post.id %>
     <p>Enter a title for your volunteer opportunity, something that tells a user what they'll be doing <%= f.text_field :title %></p>
-    <p>How many people will you be looking to host <%= f.number_field :spots %></p>
+    <p>How many people will you be looking to host <%= f.number_field :spots, required: true %></p>
     <p>Tell us a bit more about what you plan for people who come to stay with you. While you host them, what will daily life be like?</p>
     <p>This is a great opportunity to list your expectations and accomodations, past volunteer experiences if you have any!</p>
     <p><%= f.text_area :info, size: "100x10" %></p>

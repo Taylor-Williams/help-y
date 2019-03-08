@@ -3,7 +3,7 @@
     <%= f.hidden_field :post_id, :value => @post.id %>
     <p>
       <%= f.label :title %> <%= f.text_field :title %> 
-      <%= f.label :spots %> <%= f.number_field :spots %>
+      <%= f.label :spots, required: true %> <%= f.number_field :spots %>
       <%= f.label :spots_left %> <%= appointment.spots_left %>
     </p>
     <p>
@@ -13,5 +13,5 @@
     <p><%= f.label :info %><br><%= f.text_area :info, size: "100x10" %></p>
     <%= f.submit %>
   <% end %><br>
-  <%= button_to 'Delete Appointment', post_appointment_path(@post,appointment), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= button_to 'Delete Appointment', post_appointment_path(@post, appointment), method: :delete, data: { confirm: 'Are you sure?' } %>
 <% end %>
