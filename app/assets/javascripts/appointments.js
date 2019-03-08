@@ -25,9 +25,5 @@ $(
   function() {
     Appointment.renderTemplates()
     Appointment.renderAttributes()
-    Appointment.getAppointmentsForm.on("submit", function(e){
-      e.preventDefault()
-      Appointment.getAppointments()
-    })
   }
 )
