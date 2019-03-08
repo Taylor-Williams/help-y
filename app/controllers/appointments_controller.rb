@@ -3,6 +3,7 @@ class AppointmentsController < ApplicationController
 
   def new
     @post = Post.find(params[:post_id])
+    @appointment = @post.appointments.build
     unless @post && helpers.is_current_user?(@post.user)
       redirect_to posts_path, flash: {danger: "You are not authorized to make that appointment"}
     end
@@ -11,12 +12,13 @@ class AppointmentsController < ApplicationController
 
   def create
     @appointment = Appointment.create(appointment_params)
-    if @appointment.valid? 
+    if @appointment.valid?
       flash[:success] = "Successfully created appointment"
+      redirect_to post_path(params[:post_id])
     else
       flash[:danger] = @appointment.errors.full_messages.join(", ")
+      render :new
     end
-    redirect_to post_path(params[:post_id])
   end
 
   def show
