@@ -34,7 +34,10 @@ class AppointmentsController < ApplicationController
   end
 
   def available
-    render json: Appointment.available, status: 200
+    respond_to do |format|
+      format.json {render json: Appointment.available, status: 200}
+      format.html {render :available, status: 200}
+    end
   end
 
   def update
