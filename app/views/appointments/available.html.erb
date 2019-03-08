@@ -1,24 +1,24 @@
 <h1>All available Volunteer Opportunities</h1>
+<div class="appointments"></div>
 <%= javascript_include_tag 'appointments' %>
-<script id="comment-template" type="text/x-handlebars-template">
-  <div class="comment-content">
-    <h4>{{content}}</h4>
-    <div class="comment-data">
-      written by: <a href="/users/{{user.id}}">{{user.name}}</a>, last edited: {{updated_at}}
+<script id="appointment-template" type="text/x-handlebars-template">
+  <div class="appointment-content">
+    <h4>{{title}}</h4>
+    <h4>{{info}}</h4>
+    <div class="appointment-data">
+      written by: <a href="/users/{{user.id}}">{{user.name}}</a> for post: <a href="/posts/{{post.id}}">{{post.title}}</a>
     </div>
     {{#if isCurrentUser }}
-      <form action="/posts/<%=@post.id%>/comments/{{id}}" method="get" class="edit-comment-form">
-        <input type="submit" value="Edit Comment" />
+      <form action="/posts/{{post.id}}/appointments/{{id}}" method="get" class="edit-appointment-form">
+        <input type="submit" value="Edit Volunteer Opportunity" />
       </form>
     {{/if}}
   </div>
 </script>
 <script id="form-template" type="text/x-handlebars-template">
-  <form action="/posts/<%=@post.id%>/comments{{#if id}}/{{id}}{{/if}}" method="post" class="{{#if id}}update{{else}}new{{/if}}-comment-form">
+  <form action="/posts/{{post.id}}/appointments/{{id}}" method="patch" class="update-appointment-form">
   <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
-  <input type="hidden" name="comment[user_id]" value="<%= current_user %>">
-  <label for='comment[content]'>content:</label>
-  <textarea class="comment-content-text" name='comment[content]', cols="100", rows="10">{{content}}</textarea>
-  <p><input class="{{#if id}}update{{else}}create{{/if}}" type="submit" value="{{#if id}}Update{{else}}Create{{/if}} Comment" /></p>
+  <label for='appointment[info]'>information:</label>
+  <textarea class="appointment-info-text" name='appointment[info]', cols="100", rows="10">{{info}}</textarea>
+  <p><input class="update-appointment" type="submit" value="Update Appointment" /></p>
 </script>
