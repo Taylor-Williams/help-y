@@ -34,7 +34,7 @@ class AppointmentsController < ApplicationController
   end
 
   def available
-    @appointments = Appointment.available
+    render json: Appointment.available, status: 200
   end
 
   def update
