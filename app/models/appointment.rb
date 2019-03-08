@@ -14,7 +14,7 @@ class Appointment < ApplicationRecord
   end
 
   def spots_left
-    spots - volunteers_count.to_i
+    spots - volunteers_count.to_i if spots
   end
 
   def display_date(date)
