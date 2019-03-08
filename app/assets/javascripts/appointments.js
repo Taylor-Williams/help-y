@@ -1,4 +1,4 @@
-class Comment {
+class Appointments {
   constructor(attributes = {}) {
     this.user = attributes.user
     this.content = attributes.content

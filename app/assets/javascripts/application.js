@@ -17,4 +17,4 @@
 //= require handlebars
 //= require_tree .
 //= stub 'comments'
-//= stub 'available_appointments'
+//= stub 'appointments'
