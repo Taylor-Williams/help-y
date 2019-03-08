@@ -6,7 +6,7 @@ class Appointment {
     this.info = attributes.info
     this.start_date = attributes.start_date
     this.end_date = attributes.end_date
-    this.isCurrentUser = (parseInt(this.user.id) === parseInt(Appointment.userID))
+    //this.isCurrentUser = (parseInt(this.user.id) === parseInt(Appointment.userID))
   }
   renderAppointment() {
     return Appointment.template(this)
@@ -27,5 +27,14 @@ $(
   function() {
     Appointment.renderTemplates()
     Appointment.renderAttributes()
+    console.log("hello")
+    $.ajax({
+      url: '/appointments/available',
+      method: "get",
+      dataType: "json",
+    }).success((appointments) => {
+      console.log(appointments)
+      appointments.forEach((appointment) => {Appointment.appointmentsDiv.append(new Appointment(appointment).renderAppointment())})
+    })
   }
 )
