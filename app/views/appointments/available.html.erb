@@ -1,2 +1,24 @@
 <h1>All available Volunteer Opportunities</h1>
 <%= javascript_include_tag 'available_appointments' %>
+<script id="comment-template" type="text/x-handlebars-template">
+  <div class="comment-content">
+    <h4>{{content}}</h4>
+    <div class="comment-data">
+      written by: <a href="/users/{{user.id}}">{{user.name}}</a>, last edited: {{updated_at}}
+    </div>
+    {{#if isCurrentUser }}
+      <form action="/posts/<%=@post.id%>/comments/{{id}}" method="get" class="edit-comment-form">
+        <input type="submit" value="Edit Comment" />
+      </form>
+    {{/if}}
+  </div>
+</script>
+<script id="form-template" type="text/x-handlebars-template">
+  <form action="/posts/<%=@post.id%>/comments{{#if id}}/{{id}}{{/if}}" method="post" class="{{#if id}}update{{else}}new{{/if}}-comment-form">
+  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+  <input type="hidden" name="comment[post_id]" value="<%= @post.id %>">
+  <input type="hidden" name="comment[user_id]" value="<%= current_user %>">
+  <label for='comment[content]'>content:</label>
+  <textarea class="comment-content-text" name='comment[content]', cols="100", rows="10">{{content}}</textarea>
+  <p><input class="{{#if id}}update{{else}}create{{/if}}" type="submit" value="{{#if id}}Update{{else}}Create{{/if}} Comment" /></p>
+</script>
