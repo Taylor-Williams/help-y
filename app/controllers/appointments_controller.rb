@@ -24,10 +24,16 @@ class AppointmentsController < ApplicationController
 
   def show
     redirect_to available_appointments_path, flash: {danger: "No such appointment"} unless @appointment
-    if @appointment.has_user?(helpers.current_user)
-      @volunteer = Volunteer.find_by(appointment_id: @appointment.id, user_id: helpers.current_user) 
-    else
-      @volunteer = Volunteer.new
+    respond_to do |format|
+      format.json {render json: @appointment, status: 200}
+      format.html {
+        if @appointment.has_user?(helpers.current_user)
+          @volunteer = Volunteer.find_by(appointment_id: @appointment.id, user_id: helpers.current_user) 
+        else
+          @volunteer = Volunteer.new
+        end
+        render :show, status: 302
+      }
     end
   end
 
