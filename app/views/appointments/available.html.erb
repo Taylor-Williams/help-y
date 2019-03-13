@@ -34,7 +34,10 @@
         this.info = attributes.info
         this.start_date = attributes.start_date
         this.end_date = attributes.end_date
-        //this.isCurrentUser = (parseInt(this.user.id) === parseInt(Appointment.userID))
+        this.isCurrentUser = this.checkUser()
+      }
+      checkUser(){
+        return (this.user && this.user.id && parseInt(this.user.id) === parseInt(Appointment.userID))
       }
       renderAppointment() {
         return Appointment.template(this)
@@ -55,6 +58,7 @@
     }
     Appointment.renderTemplates = function(){
       this.template = Handlebars.compile(document.getElementById("appointment-template").innerHTML)
+      console.log("finished compiling template")
       this.formTemplate = Handlebars.compile(document.getElementById("form-template").innerHTML)
     }
     Appointment.renderAttributes = function(){
@@ -72,6 +76,6 @@
           Appointment.getAppointments()
         })
       }
-)
+    )
   </script>
 <% end %>
