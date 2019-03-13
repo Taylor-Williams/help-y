@@ -7,7 +7,7 @@
     <h4>{{title}}</h4>
     <h4>{{info}}</h4>
     <div class="appointment-data">
-      written by: <a href="/users/{{user.id}}">{{user.name}}</a> for post: <a href="/posts/{{post.id}}">{{post.title}}</a>
+      from post: <a href="/posts/{{post.id}}">{{post.title}}</a>, their user <a href="/users/{{owner_id}}">profile</a> 
     </div>
     {{#if isCurrentUser }}
       <form action="/posts/{{post.id}}/appointments/{{id}}" method="get" class="edit-appointment-form">
@@ -28,16 +28,16 @@
   <script>
     class Appointment {
       constructor(attributes = {}) {
-        this.user = attributes.user
         this.post = attributes.post
         this.id = attributes.id
         this.info = attributes.info
         this.start_date = attributes.start_date
         this.end_date = attributes.end_date
+        this.owner_id = attributes.owner_id
         this.isCurrentUser = this.checkUser()
       }
       checkUser(){
-        return (this.user && this.user.id && parseInt(this.user.id) === parseInt(Appointment.userID))
+        return (this.owner_id && parseInt(this.owner_id) === parseInt(Appointment.userID))
       }
       renderAppointment() {
         return Appointment.template(this)
@@ -58,7 +58,10 @@
     }
     Appointment.renderAppointments = function(appointments) {
       appointments.forEach((appointment) => {
-        Appointment.appointmentsDiv.append(new Appointment(appointment).renderAppointment())
+        a = new Appointment(appointment)
+        console.log(appointment)
+        console.log(a)
+        Appointment.appointmentsDiv.append(a.renderAppointment())
       })
     }
     Appointment.renderTemplates = function(){

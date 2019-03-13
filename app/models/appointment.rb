@@ -33,6 +33,10 @@ class Appointment < ApplicationRecord
     active? && !full?
   end
 
+  def owner_id
+    self.post.user_id
+  end
+
   def active_string
     case
     when !active?
