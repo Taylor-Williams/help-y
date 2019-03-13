@@ -24,7 +24,7 @@ class AppointmentsController < ApplicationController
   def show
     @appointment = Appointment.find(params[:id])
     unless @appointment
-      redirect_to appointments_path, flash: {danger: "No such appointment"}
+      redirect_to available_appointments_path, flash: {danger: "No such appointment"}
     end
     if @appointment.has_user?(helpers.current_user)
       @volunteer = Volunteer.find_by(appointment_id: @appointment.id, user_id: helpers.current_user) 
@@ -65,5 +65,10 @@ class AppointmentsController < ApplicationController
 
   def appointment_params
     params.require(:appointment).permit(:post_id, :spots, :start_date, :end_date, :info, :title)
+  end
+
+  def find_appointment
+    @appointment = Appointment.find(params[:appointment])
+    flash[danger: "not a valid appointment"] unless @appointment
   end
 end
