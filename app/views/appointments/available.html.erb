@@ -58,23 +58,23 @@
     }
     Appointment.renderTemplates = function(){
       this.template = Handlebars.compile(document.getElementById("appointment-template").innerHTML)
-      console.log("finished compiling template")
+      console.log("finished compiling template 1")
       this.formTemplate = Handlebars.compile(document.getElementById("form-template").innerHTML)
+      console.log("finished compiling template 2")
     }
     Appointment.renderAttributes = function(){
       this.appointmentsDiv = $('.appointments')
       this.userID = $(".user-link").attr("href").slice(-1)
       this.getAppointmentsButton = $("get-appointments")
+      console.log("finished rendering attributes")
     }
     $(
       function() {
         console.log("hello")
         Appointment.renderTemplates()
         Appointment.renderAttributes()
-        Appointment.getAppointmentsButton.on("submit", function(e){
-          e.preventDefault()
-          Appointment.getAppointments()
-        })
+        Appointment.getAppointments()
+        console.log("got all appointments")
       }
     )
   </script>
