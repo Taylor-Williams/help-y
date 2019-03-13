@@ -10,7 +10,7 @@
       from post: <a href="/posts/{{post.id}}">{{post.title}}</a>, their user <a href="/users/{{owner_id}}">profile</a> 
     </div>
     {{#if isCurrentUser }}
-      <form action="/posts/{{post.id}}/appointments/{{id}}" method="get" class="edit-appointment-form">
+      <form action="/appointments/{{id}}" method="get" class="edit-appointment-form">
         <input type="submit" value="Edit Volunteer Opportunity" />
       </form>
     {{/if}}
@@ -53,12 +53,24 @@
         method: "get"
       }).success((appointments) => {
         Appointment.renderAppointments(appointments)
+        Appointment.attachEditListeners()
       })
     }
     Appointment.renderAppointments = function(appointments) {
       appointments.forEach((appointment) => {
         a = new this(appointment)
         this.appointmentsDiv.append(a.renderAppointment())
+      })
+    }
+    Appointment.attachEditListeners = function(){
+      $(".edit-appointment-form").on("submit", function(e) {
+        e.preventDefault()
+        editForm = $(this)
+        appointmentDiv = editForm.parent()
+        action = editForm.attr("action")
+        $.get(action, (appointment) => {
+          appointmentDiv.html(new Appointment(appointment).renderForm())
+        })
       })
     }
     Appointment.renderTemplates = function(){
@@ -68,7 +80,6 @@
     Appointment.renderAttributes = function(){
       this.appointmentsDiv = $('.appointments')
       this.userID = $(".user-link").attr("href").slice(-1)
-      this.getAppointmentsButton = $("get-appointments")
     }
     $(
       function() {
