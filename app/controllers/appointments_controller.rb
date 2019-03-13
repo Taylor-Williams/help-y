@@ -1,10 +1,9 @@
 class AppointmentsController < ApplicationController
   before_action :require_login, except: [:available]
-  before_action :find_post, except: [:available]
+  before_action :find_post, except: [:available, :show]
   before_action :find_appointment, except: [:available, :new, :create]
 
   def new
-    @post = Post.find(params[:post_id])
     @appointment = @post.appointments.build
     unless @post && helpers.is_current_user?(@post.user)
       redirect_to posts_path, flash: {danger: "You are not authorized to make that appointment"}
