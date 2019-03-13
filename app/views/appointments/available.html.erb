@@ -53,7 +53,12 @@
         method: "get"
       }).success((appointments) => {
         console.log(appointments)
-        appointments.forEach((appointment) => {Appointment.appointmentsDiv.append(new Appointment(appointment).renderAppointment())})
+        Appointment.renderAppointments(appointments)
+      })
+    }
+    Appointment.renderAppointments = function(appointments) {
+      appointments.forEach((appointment) => {
+        Appointment.appointmentsDiv.append(new Appointment(appointment).renderAppointment())
       })
     }
     Appointment.renderTemplates = function(){
