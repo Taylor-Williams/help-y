@@ -1,8 +1,7 @@
 <h1>All available Volunteer Opportunities</h1>
-<br>
+
 <div class="appointments"></div>
 
-<%= javascript_include_tag 'appointments' %>
 <script id="appointment-template" type="text/x-handlebars-template">
   <div class="appointment-content">
     <h4>{{title}}</h4>
@@ -24,3 +23,55 @@
   <textarea class="appointment-info-text" name='appointment[info]', cols="100", rows="10">{{info}}</textarea>
   <p><input class="update-appointment" type="submit" value="Update Appointment" /></p>
 </script>
+
+<% content_for :js do %>
+  <script>
+    class Appointment {
+      constructor(attributes = {}) {
+        this.user = attributes.user
+        this.post = attributes.post
+        this.id = attributes.id
+        this.info = attributes.info
+        this.start_date = attributes.start_date
+        this.end_date = attributes.end_date
+        //this.isCurrentUser = (parseInt(this.user.id) === parseInt(Appointment.userID))
+      }
+      renderAppointment() {
+        return Appointment.template(this)
+      }
+      renderForm(){
+        return Appointment.formTemplate(this)
+      }
+    }
+    Appointment.getAppointments = function(){
+      $.ajax({
+        dataType: "JSON",
+        url: '/appointments/available',
+        method: "get"
+      }).success((appointments) => {
+        console.log(appointments)
+        appointments.forEach((appointment) => {Appointment.appointmentsDiv.append(new Appointment(appointment).renderAppointment())})
+      })
+    }
+    Appointment.renderTemplates = function(){
+      this.template = Handlebars.compile(document.getElementById("appointment-template").innerHTML)
+      this.formTemplate = Handlebars.compile(document.getElementById("form-template").innerHTML)
+    }
+    Appointment.renderAttributes = function(){
+      this.appointmentsDiv = $('.appointments')
+      this.userID = $(".user-link").attr("href").slice(-1)
+      this.getAppointmentsButton = $("get-appointments")
+    }
+    $(
+      function() {
+        console.log("hello")
+        Appointment.renderTemplates()
+        Appointment.renderAttributes()
+        Appointment.getAppointmentsButton.on("submit", function(e){
+          e.preventDefault()
+          Appointment.getAppointments()
+        })
+      }
+)
+  </script>
+<% end %>
