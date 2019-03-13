@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :require_login, except: [:available]
+  before_action :find_appointment, except: [:available, :new, :create]
 
   def new
     @post = Post.find(params[:post_id])
@@ -22,10 +23,7 @@ class AppointmentsController < ApplicationController
   end
 
   def show
-    @appointment = Appointment.find(params[:id])
-    unless @appointment
-      redirect_to available_appointments_path, flash: {danger: "No such appointment"}
-    end
+    redirect_to available_appointments_path, flash: {danger: "No such appointment"} unless @appointment
     if @appointment.has_user?(helpers.current_user)
       @volunteer = Volunteer.find_by(appointment_id: @appointment.id, user_id: helpers.current_user) 
     else
@@ -41,7 +39,6 @@ class AppointmentsController < ApplicationController
   end
 
   def update
-    @appointment = Appointment.find(params[:id])
     if @appointment.update(appointment_params)
       flash[:success] = "Successfully edited appointment"
     else
@@ -51,8 +48,7 @@ class AppointmentsController < ApplicationController
   end
 
   def destroy
-    appointment = Appointment.find(params[:id])
-    if appointment && appointment.post.user_id == session[:user_id]
+    if @appointment.owner_id == helpers.current_user
       Appointment.destroy(params[:id])
       flash[:success] = "Successfully deleted appointment"
     else
@@ -68,7 +64,7 @@ class AppointmentsController < ApplicationController
   end
 
   def find_appointment
-    @appointment = Appointment.find(params[:appointment])
+    @appointment = Appointment.find(params[:id])
     flash[danger: "not a valid appointment"] unless @appointment
   end
 end
