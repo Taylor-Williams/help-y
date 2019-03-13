@@ -16,5 +16,3 @@
 //= require jquery
 //= require handlebars
 //= require_tree .
-//= stub 'comments'
-//= stub 'appointments'
