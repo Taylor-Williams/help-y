@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :require_login, except: [:available]
+  before_action :find_post, except: [:available]
   before_action :find_appointment, except: [:available, :new, :create]
 
   def new
@@ -61,6 +62,11 @@ class AppointmentsController < ApplicationController
 
   def appointment_params
     params.require(:appointment).permit(:post_id, :spots, :start_date, :end_date, :info, :title)
+  end
+
+  def find_post
+    @post = Post.find(params[:post_id])
+    flash[danger: "not a valid post"] unless @post
   end
 
   def find_appointment
