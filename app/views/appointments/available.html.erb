@@ -14,12 +14,17 @@
     </form>
   </div>
 </script>
-<script id="form-template" type="text/x-handlebars-template">
-  <form action="/posts/{{post.id}}/appointments/{{id}}" method="patch" class="update-appointment-form">
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
-  <label for='appointment[info]'>information:</label>
-  <textarea class="appointment-info-text" name='appointment[info]', cols="100", rows="10">{{info}}</textarea>
-  <p><input class="update-appointment" type="submit" value="Update Appointment" /></p>
+<script id="full-appointment-template" type="text/x-handlebars-template">
+  <div class="appointment-content">
+    <h4>{{title}}</h4>
+    <h4>{{info}}</h4>
+    <div class="appointment-data">
+      from post: <a href="/posts/{{post.id}}">{{post.title}}</a>, their user <a href="/users/{{owner_id}}">profile</a> 
+    </div>
+    <form action="/appointments/{{id}}" method="get" class="more-info-button" id="appointment-{{id}}">
+      <input type="submit" value="More Info" />
+    </form>
+  </div>
 </script>
 
 <% content_for :js do %>
@@ -40,8 +45,8 @@
       renderAppointment() {
         return Appointment.template(this)
       }
-      renderForm(){
-        return Appointment.formTemplate(this)
+      renderFullApp(){
+        return Appointment.fullTemplate(this)
       }
     }
     Appointment.getAppointments = function(){
@@ -64,13 +69,13 @@
       $(".more-info-button").on("submit", function(e) {
         e.preventDefault()
         $.get($(this).attr("action"), (appointment) => {
-          Appointment.appointmentsDiv.html(new Appointment(appointment).renderAppointment())
+          Appointment.appointmentsDiv.html(new Appointment(appointment).renderFullApp())
         })
       })
     }
     Appointment.renderTemplates = function(){
       this.template = Handlebars.compile(document.getElementById("appointment-template").innerHTML)
-      this.formTemplate = Handlebars.compile(document.getElementById("form-template").innerHTML)
+      this.fullTemplate = Handlebars.compile(document.getElementById("full-appointment-template").innerHTML)
     }
     Appointment.renderAttributes = function(){
       this.appointmentsDiv = $('.appointments')
