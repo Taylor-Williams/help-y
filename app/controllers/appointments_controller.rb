@@ -5,7 +5,7 @@ class AppointmentsController < ApplicationController
 
   def new
     @appointment = @post.appointments.build
-    unless @post && helpers.is_current_user?(@post.user)
+    unless helpers.is_current_user?(@post.user)
       redirect_to posts_path, flash: {danger: "You are not authorized to make that appointment"}
     end
     render :new
