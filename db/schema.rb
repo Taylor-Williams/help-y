@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 2019_01_18_021945) do
   create_table "appointments", force: :cascade do |t|
     t.integer "post_id"
     t.integer "spots"
-    t.datetime "start_date"
-    t.datetime "end_date"
+    t.date "start_date"
+    t.date "end_date"
     t.text "info"
     t.string "title"
     t.datetime "created_at", null: false

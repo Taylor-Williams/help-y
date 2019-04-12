@@ -8,8 +8,8 @@ d.posts.create(title: "my great ranch", content: "great place to raise cattle an
 s.posts.create(title: "my great library", content: "great place to read books and learn the arts")
 c.posts.create(title: "my great workshop", content: "great place to build anything mechanical")
 a.posts.create(title: "my great mansion", content: "great place to play hide-and-go-seek")
-todays_date = DateTime.now
-later_date = DateTime.new(2025)
+todays_date = Date.today
+later_date = Date.new(2025)
 j.posts.first.appointments.create(spots: 1, start_date: todays_date, end_date: later_date,
   info: "help me paint the farm and wrangle the pigs", title: "farmhand needed")
 d.posts.first.appointments.create(spots: 2, start_date: todays_date, end_date: later_date,
