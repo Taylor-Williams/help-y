@@ -4,8 +4,8 @@
   <%= hidden_field :volunteer, :appointment_id, :value => @appointment.id %>
   <p><strong>Make sure the dates you select to volunteer with are within the volunteer opportunities' dates!</strong></p>
   <p>
-    <%= f.label :start_date %> <%= f.datetime_select :start_date %> 
-    <%= f.label :end_date %> <%= f.datetime_select :end_date %> 
+    <%= f.label :start_date %> <%= f.date_select :start_date %> 
+    <%= f.label :end_date %> <%= f.date_select :end_date %> 
   </p>
   <%= f.submit @volunteer.id ? "Edit Dates" : "Volunteer" %>
 <% end %><br>
