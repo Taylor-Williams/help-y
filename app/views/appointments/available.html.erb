@@ -9,11 +9,9 @@
     <div class="appointment-data">
       from post: <a href="/posts/{{post.id}}">{{post.title}}</a>, their user <a href="/users/{{owner_id}}">profile</a> 
     </div>
-    {{#if isCurrentUser }}
-      <form action="/appointments/{{id}}" method="get" class="edit-appointment-form">
-        <input type="submit" value="Edit Volunteer Opportunity" />
-      </form>
-    {{/if}}
+    <form action="/appointments/{{id}}" method="get" class="more-info-button" id="appointment-{{id}}">
+      <input type="submit" value="More Info" />
+    </form>
   </div>
 </script>
 <script id="form-template" type="text/x-handlebars-template">
@@ -53,7 +51,7 @@
         method: "get"
       }).success((appointments) => {
         Appointment.renderAppointments(appointments)
-        Appointment.attachEditListeners()
+        Appointment.attachMoreListeners()
       })
     }
     Appointment.renderAppointments = function(appointments) {
@@ -62,14 +60,11 @@
         this.appointmentsDiv.append(a.renderAppointment())
       })
     }
-    Appointment.attachEditListeners = function(){
-      $(".edit-appointment-form").on("submit", function(e) {
+    Appointment.attachMoreListeners = function(){
+      $(".more-info-button").on("submit", function(e) {
         e.preventDefault()
-        editForm = $(this)
-        appointmentDiv = editForm.parent()
-        action = editForm.attr("action")
-        $.get(action, (appointment) => {
-          appointmentDiv.html(new Appointment(appointment).renderForm())
+        $.get($(this).attr("action"), (appointment) => {
+          Appointment.appointmentsDiv.html(new Appointment(appointment).renderAppointment())
         })
       })
     }
