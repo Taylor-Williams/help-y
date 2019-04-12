@@ -9,7 +9,7 @@
     <div class="appointment-data">
       from post: <a href="/posts/{{post.id}}">{{post.title}}</a>, <a href="/users/{{owner_id}}">{{owner_name}}</a>'s profile 
     </div>
-    <form action="/appointments/{{id}}" method="get" class="more-info-button" id="appointment-{{id}}">
+    <form action="/appointments/{{id}}" method="get" class="more-info-button" data-id={{availableId}}>
       <input type="submit" value="More Info" />
     </form>
   </div>
@@ -78,7 +78,7 @@
     Appointment.createAppointments = function(appointments){
       appointments.forEach((a) => {new Appointment(a)})
     }
-    Appointment.renderAppointments = function() {
+    Appointment.renderAppointments = function(){
       this.allAppointments.forEach((a) => {
         this.appointmentsDiv.append(a.renderAppointment())
       })
@@ -86,10 +86,11 @@
     Appointment.attachMoreListeners = function(){
       $(".more-info-button").on("submit", function(e) {
         e.preventDefault()
-        $.get($(this).attr("action"), (appointment) => {
-          Appointment.appointmentsDiv.html(new Appointment(appointment).renderFullApp())
-        })
+        Appointment.renderAppointmentById(this.dataset.id)
       })
+    }
+    Appointment.renderAppointmentById = function(id){
+      Appointment.appointmentsDiv.html(Appointment.allAppointments[id].renderFullApp())
     }
     Appointment.renderTemplates = function(){
       this.template = Handlebars.compile(document.getElementById("appointment-template").innerHTML)
