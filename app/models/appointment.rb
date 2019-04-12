@@ -5,12 +5,12 @@ class Appointment < ApplicationRecord
 
   validates :info, length: {in: 1..1000, message: "keep your comment info between 1 and 1000 characters."}
   validates :spots, numericality: { only_integer: true, greater_than_or_equal_to: 1 }
-  validates :start_date, date: { after: Proc.new { Date.today }, message: 'must be after today' }, on: :create
+  validates :start_date, date: { after_or_equal_to: Proc.new { Date.today }, message: 'cannot be before today\'s date' }, on: :create
   validates :end_date, date: { after: :start_date, message: 'must be after start date' }
   validates :volunteers_count, numericality: { less_than_or_equal_to: :spots }
 
   def days_left
-    (end_date - Time.now).to_i  / 86400 #86400 magic number turns Date comparison from seconds into days
+    (end_date - Date.today).to_i
   end
 
   def spots_left
