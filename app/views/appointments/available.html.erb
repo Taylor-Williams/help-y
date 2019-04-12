@@ -38,6 +38,8 @@
         this.end_date = attributes.end_date
         this.owner_id = attributes.owner_id
         this.owner_name = attributes.owner_name
+        this.availableId = Appointment.allAppointments.length
+        Appointment.allAppointments.push(this)
       }
       renderAppointment() {
         return Appointment.template(this)
@@ -77,6 +79,7 @@
     Appointment.renderAttributes = function(){
       this.appointmentsDiv = $('.appointments')
       this.userID = $(".user-link").attr("href").slice(-1)
+      this.allAppointments = []
     }
     $(
       function() {
