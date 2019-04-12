@@ -1,5 +1,5 @@
 class AppointmentsController < ApplicationController
-  before_action :require_login, except: [:available]
+  before_action :require_login
   before_action :find_post, except: [:available, :show]
   before_action :find_appointment, except: [:available, :new, :create]
 
