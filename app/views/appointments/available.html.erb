@@ -29,15 +29,9 @@
         <input type="submit" value="Volunteer!" />
       </form>
     </div>
-    <form id="next-info-button">
-      <input type="submit" value="Next Volunteer Opportunity" />
-    </form>
-    <form id="last-info-button">
-      <input type="submit" value="Last Volunteer Opportunity" />
-    </form>
-    <form id="all-info-button">
-      <input type="submit" value="All Volunteer Opportunities" />
-    </form>
+    <input type="submit" value="Next Volunteer Opportunity" id="next-info-button"/>
+    <input type="submit" value="Last Volunteer Opportunity" id="last-info-button"/>
+    <input type="submit" value="All Volunteer Opportunities" id="all-info-button"/>
   </div>
 </script>
 
@@ -72,16 +66,17 @@
       }).success((appointments) => {
         Appointment.createAppointments(appointments)
         Appointment.renderAppointments()
-        Appointment.attachMoreListeners()
       })
     }
     Appointment.createAppointments = function(appointments){
       appointments.forEach((a) => {new Appointment(a)})
     }
     Appointment.renderAppointments = function(){
+      this.appointmentsDiv.empty()
       this.allAppointments.forEach((a) => {
         this.appointmentsDiv.append(a.renderAppointment())
       })
+      this.attachMoreListeners()
     }
     Appointment.attachMoreListeners = function(){
       $(".more-info-button").on("submit", function(e) {
@@ -91,6 +86,13 @@
     }
     Appointment.renderAppointmentById = function(id){
       Appointment.appointmentsDiv.html(Appointment.allAppointments[id].renderFullApp())
+      Appointment.attachNLAButtons(id)
+    }
+    Appointment.attachNLAButtons = function(id){
+      let appId = parseInt(id)
+      $("#next-info-button").click(() => {this.renderAppointmentById(appId + 1)})
+      $("#last-info-button").click(() => {this.renderAppointmentById(appId - 1)})
+      $("#all-info-button").click(() => {this.renderAppointments()})
     }
     Appointment.renderTemplates = function(){
       this.template = Handlebars.compile(document.getElementById("appointment-template").innerHTML)
