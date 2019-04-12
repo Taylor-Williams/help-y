@@ -70,13 +70,16 @@
         url: '/appointments/available',
         method: "get"
       }).success((appointments) => {
-        Appointment.renderAppointments(appointments)
+        Appointment.createAppointments(appointments)
+        Appointment.renderAppointments()
         Appointment.attachMoreListeners()
       })
     }
-    Appointment.renderAppointments = function(appointments) {
-      appointments.forEach((appointment) => {
-        a = new this(appointment)
+    Appointment.createAppointments = function(appointments){
+      appointments.forEach((a) => {new Appointment(a)})
+    }
+    Appointment.renderAppointments = function() {
+      this.allAppointments.forEach((a) => {
         this.appointmentsDiv.append(a.renderAppointment())
       })
     }
