@@ -19,10 +19,23 @@
     <h2>{{title}}</h2>
     <h4>{{info}}</h4>
     <div class="appointment-data">
-      from post: <a href="/posts/{{post.id}}">{{post.title}}</a>, <a href="/users/{{owner_id}}">{{owner_name}}</a>'s  profile 
+      <p>There are {{spots_left}} available spots for this opportunity</p>
+      <p>Start Date: {{start_date}}</p>
+      <p>End Date: {{end_date}}</p>
+      <p>from post: <a href="/posts/{{post.id}}">{{post.title}}</a>, <a href="/users/{{owner_id}}">{{owner_name}}</a>'s  profile</p>
+      <p>would you like to sign up to volunteer for this?</p>
+      <form action="/appointments/{{id}}" method="get" class="more-info-button">
+        <input type="submit" value="Volunteer!" />
+      </form>
     </div>
-    <form action="/appointments/{{id}}" method="get" class="more-info-button" id="appointment-{{id}}">
-      <input type="submit" value="More Info" />
+    <form action="/appointments/{{id}}" method="get" class="more-info-button">
+      <input type="submit" value="Next Volunteer Opportunity" />
+    </form>
+    <form action="/appointments/{{id}}" method="get" class="more-info-button">
+      <input type="submit" value="Last Volunteer Opportunity" />
+    </form>
+    <form action="/appointments/{{id}}" method="get" class="more-info-button">
+      <input type="submit" value="All Volunteer Opportunities" />
     </form>
   </div>
 </script>
