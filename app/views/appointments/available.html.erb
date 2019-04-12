@@ -22,7 +22,8 @@
       <p>There are {{spots_left}} available spots for this opportunity</p>
       <p>Start Date: {{start_date}}</p>
       <p>End Date: {{end_date}}</p>
-      <p>from post: <a href="/posts/{{post.id}}">{{post.title}}</a>, <a href="/users/{{owner_id}}">{{owner_name}}</a>'s  profile</p>
+      <p>from post: <a href="/posts/{{post.id}}">{{post.title}}</a></p>
+      <p>created by user: <a href="/users/{{owner_id}}">{{owner_name}}</a></p>
       <p>would you like to sign up to volunteer for this?</p>
       <form action="/appointments/{{id}}" method="get" class="more-info-button">
         <input type="submit" value="Volunteer!" />
