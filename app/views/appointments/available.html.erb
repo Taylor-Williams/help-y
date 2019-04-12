@@ -37,10 +37,6 @@
         this.start_date = attributes.start_date
         this.end_date = attributes.end_date
         this.owner_id = attributes.owner_id
-        this.isCurrentUser = this.checkUser()
-      }
-      checkUser(){
-        return (this.owner_id && parseInt(this.owner_id) === parseInt(Appointment.userID))
       }
       renderAppointment() {
         return Appointment.template(this)
