@@ -9,9 +9,7 @@
     <div class="appointment-data">
       from post: <a href="/posts/{{post.id}}">{{post.title}}</a>, <a href="/users/{{owner_id}}">{{owner_name}}</a>'s profile 
     </div>
-    <form action="/appointments/{{id}}" method="get" class="more-info-button" data-id={{availableId}}>
-      <input type="submit" value="More Info" />
-    </form>
+    <input type="submit" value="More Info" class="more-info-button" data-id={{availableId}} />
   </div>
 </script>
 <script id="full-appointment-template" type="text/x-handlebars-template">
@@ -79,8 +77,8 @@
       this.attachMoreListeners()
     }
     Appointment.attachMoreListeners = function(){
-      $(".more-info-button").on("submit", function(e) {
-        e.preventDefault()
+      $(".more-info-button").click(function() {
+        console.log(this.dataset.id)
         Appointment.renderAppointmentById(this.dataset.id)
       })
     }
