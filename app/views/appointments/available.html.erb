@@ -74,9 +74,9 @@
       this.allAppointments.forEach((a) => {
         this.appointmentsDiv.append(a.renderAppointment())
       })
-      this.attachMoreListeners()
+      this.attachMoreInfoListeners()
     }
-    Appointment.attachMoreListeners = function(){
+    Appointment.attachMoreInfoListeners = function(){
       $(".more-info-button").click(function() {
         console.log(this.dataset.id)
         Appointment.renderAppointmentById(this.dataset.id)
