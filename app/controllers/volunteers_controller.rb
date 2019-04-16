@@ -13,7 +13,7 @@ class VolunteersController < ApplicationController
 
   def update
     volunteer = Volunteer.find(params[:id])
-    if volunteer && volunteer.valid?
+    if volunteer && volunteer.update(volunteer_params)
       flash[:success] = 'successfully edited volunteer dates'
     else
       flash[:danger] = volunteer.errors.full_messages.join(", ")
