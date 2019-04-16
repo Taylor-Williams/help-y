@@ -6,6 +6,7 @@
 <input id="new-comment-button" type="submit" value="Add New Comment" />
 <div id="new-comment"></div>
 <div class="comments"></div>
+<div id="comments-clear"><input type="submit" value="Clear Comments" /></div>
 <%= button_to "Load Comments", post_comments_path(@post), {method: :get, form_class: "get-comments"} %>
 <%= content_tag(:h3, "Volunteer Opportunities") unless @appointments.blank? %>
 <%= render partial: 'appointments/post_appointment', collection: @appointments, as: :appointment %><br>
@@ -62,6 +63,8 @@
       $.get(this.APIURL, (comments) => {
         if(comments.length) {
           this.commentsDiv.empty()
+          this.clearButton.toggle()
+          this.getCommentsForm.toggle()
           this.renderCommentsDiv(comments)
         } else {
           this.commentsDiv.text("There are no comments for this post")
@@ -71,16 +74,12 @@
     Comment.clearComments = function() {
       this.commentsDiv.empty()
     }
-    Comment.addClearButton = function() {
-      if(!$(".comments-clear").length){
-        this.getCommentsForm.append(this.clearButtonHTML)
-        this.clearButton = $(".comments-clear")
-        this.clearButton.on("click", (e) => {
-          e.preventDefault()
-          this.clearComments()
-          this.clearButton.remove()
-        })
-      }
+    Comment.setToggles = function() {
+      this.clearButton.click(() => {
+        this.clearComments()
+        this.clearButton.toggle()
+        this.getCommentsForm.toggle()
+      })
     }
     Comment.renderCommentsDiv = function(comments){
       this.allComments = $(".comment-content")
@@ -88,7 +87,6 @@
       comments.forEach((comment) => {
         this.commentsDiv.append(new this(comment).renderComment())
       })
-      this.addClearButton()
       this.attachEditListeners()
     }
     Comment.attachEditListeners = () => {
@@ -114,8 +112,8 @@
           url: updateAction,
           data: updateData
         }).success((comment) => {
-          console.log(comment)
           $(updateForm).parent().html(new Comment(comment).renderComment())
+          Comment.attachEditListeners()
         })
       })
     }
@@ -138,11 +136,11 @@
     Comment.renderTemplates = function(){
       this.template = Handlebars.compile(document.getElementById("comment-template").innerHTML)
       this.formTemplate = Handlebars.compile(document.getElementById("form-template").innerHTML)
-      this.clearButtonHTML = "<input class=\"comments-clear\" type=\"submit\" value=\"Clear Comments\"></input>"
     }
     Comment.renderAttributes = function(){
       this.userID = $(".user-link").attr("href").slice(-1)
       this.getCommentsForm = $('.get-comments')
+      this.clearButton = $('#comments-clear')
       this.newCommentDiv = $('#new-comment')
       this.newCommentButton = $('#new-comment-button')
       this.APIURL = this.getCommentsForm.attr("action") // '/posts/:id/comments'
@@ -154,6 +152,7 @@
       function() {
         Comment.renderTemplates()
         Comment.renderAttributes()
+        Comment.setToggles()
         Comment.newCommentButton.on("click", function(){
           Comment.newCommentForm()
         })
