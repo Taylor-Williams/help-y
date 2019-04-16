@@ -78,7 +78,6 @@
     }
     Appointment.attachMoreInfoListeners = function(){
       $(".more-info-button").click(function() {
-        console.log(this.dataset.id)
         Appointment.renderAppointmentById(this.dataset.id)
       })
     }
