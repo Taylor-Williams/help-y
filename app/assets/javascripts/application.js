@@ -13,6 +13,7 @@
 //= require rails-ujs
 //= require activestorage
 //= require jquery
+//= require turbolinks
 //= require handlebars
 //= require_tree .
 //= stub appointment.js
