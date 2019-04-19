@@ -15,3 +15,5 @@
 //= require jquery
 //= require handlebars
 //= require_tree .
+//= stub appointment.js
+//= stub comment.js
