@@ -37,3 +37,5 @@
   <textarea class="comment-content-text" name='comment[content]', cols="100", rows="10">{{content}}</textarea>
   <p><input class="{{#if id}}update{{else}}create{{/if}}" type="submit" value="{{#if id}}Update{{else}}Create{{/if}} Comment" /></p>
 </script>
+
+<%= javascript_include_tag 'comment', 'data-turbolinks-track': 'reload' %>
