@@ -106,17 +106,15 @@ Comment.renderAttributes = function(){
   let digit = new RegExp("(\\d)") 
   this.postID = this.APIURL.split(digit)[1] // the id from the above url
 }
-$(
-  function() {
-    Comment.renderTemplates()
-    Comment.renderAttributes()
-    Comment.setToggles()
-    Comment.newCommentButton.on("click", function(){
-      Comment.newCommentForm()
-    })
-    Comment.getCommentsForm.on("submit", function(e){
-      e.preventDefault()
-      Comment.getComments()
-    })
-  }
-)
+$(document).on("turbolinks:load", function() {
+  Comment.renderTemplates()
+  Comment.renderAttributes()
+  Comment.setToggles()
+  Comment.newCommentButton.on("click", function(){
+    Comment.newCommentForm()
+  })
+  Comment.getCommentsForm.on("submit", function(e){
+    e.preventDefault()
+    Comment.getComments()
+  })
+})
