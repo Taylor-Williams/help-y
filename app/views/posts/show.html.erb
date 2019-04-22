@@ -3,9 +3,8 @@
 <% else %>
   <%= render partial: 'display_info', locals: {post: @post} %>
 <% end %>
-<input id="new-comment-button" type="submit" value="Add New Comment" />
 <div id="new-comment"></div>
-<div class="comments"></div>
+<div id="comments"></div>
 <div id="comments-clear"><input type="submit" value="Clear Comments" /></div>
 <%= button_to "Load Comments", post_comments_path(@post), {method: :get, form_class: "get-comments"} %>
 <%= content_tag(:h3, "Volunteer Opportunities") unless @appointments.blank? %>
@@ -37,5 +36,7 @@
   <textarea class="comment-content-text" name='comment[content]', cols="100", rows="10">{{content}}</textarea>
   <p><input class="{{#if id}}update{{else}}create{{/if}}" type="submit" value="{{#if id}}Update{{else}}Create{{/if}} Comment" /></p>
 </script>
-
+<script id="new-comment-button-template" type="text/x-handlebars-template">
+  <input id="new-comment-button" type="submit" value="Add New Comment" />
+</script>
 <%= javascript_include_tag 'comment', 'data-turbolinks-track': 'reload' %>

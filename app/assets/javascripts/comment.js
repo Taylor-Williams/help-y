@@ -17,24 +17,12 @@ class Comment {
     return Comment.formTemplate(this)
   }
 }
-Comment.getComments = function() {
-  $.get(this.APIURL, (comments) => {
-    if(comments.length) {
-      this.commentsDiv.empty()
-      this.clearButton.toggle()
-      this.getCommentsForm.toggle()
-      this.renderCommentsDiv(comments)
-    } else {
-      this.commentsDiv.text("There are no comments for this post")
-    }
-  })
-}
 Comment.clearComments = function() {
   this.commentsDiv.empty()
 }
 Comment.setToggles = function() {
   this.clearButton.click(() => {
-    this.clearComments()
+    this.commentsDiv.empty()
     this.clearButton.toggle()
     this.getCommentsForm.toggle()
   })
@@ -45,6 +33,8 @@ Comment.renderCommentsDiv = function(comments){
   comments.forEach((comment) => {
     this.commentsDiv.append(new this(comment).renderComment())
   })
+  this.commentsDiv.append(this.newCommentButtonTemplate())
+  $('#new-comment-button').on("click", Comment.newCommentForm)
   this.attachEditListeners()
 }
 Comment.attachEditListeners = () => {
@@ -76,45 +66,49 @@ Comment.attachUpdateListener = (updateForm) => {
   })
 }
 Comment.newCommentForm = function() { 
-  this.newCommentDiv.html(new Comment().renderForm())
-  this.newForm = $(".new-comment-form") //created above ^
-  this.newForm.on("submit", (e) => {
-    e.preventDefault()
-    this.saveComment()
-  })
+  Comment.commentsDiv.append(new Comment().renderForm())
+  Comment.newForm = $(".new-comment-form") //created above ^
+  Comment.newForm.on("submit", Comment.saveComment)
 }
-Comment.saveComment = function() {
-  let action = this.newForm.attr("action")
-  let formData = this.newForm.serialize()
+Comment.saveComment = function(e) {
+  e.preventDefault()
+  let action = Comment.newForm.attr("action")
+  let formData = Comment.newForm.serialize()
   $.post(action, formData, (comment) => {
-    this.renderCommentsDiv([comment])
+    Comment.renderCommentsDiv([comment])
   })
-  this.newCommentDiv.empty()
 }
 Comment.renderTemplates = function(){
+  this.newCommentButtonTemplate = Handlebars.compile(document.getElementById("new-comment-button-template").innerHTML)
   this.template = Handlebars.compile(document.getElementById("comment-template").innerHTML)
   this.formTemplate = Handlebars.compile(document.getElementById("form-template").innerHTML)
 }
 Comment.renderAttributes = function(){
   this.userID = $(".user-link").attr("href").slice(-1)
-  this.getCommentsForm = $('.get-comments')
   this.clearButton = $('#comments-clear')
-  this.newCommentDiv = $('#new-comment')
-  this.newCommentButton = $('#new-comment-button')
-  this.APIURL = this.getCommentsForm.attr("action") // '/posts/:id/comments'
-  this.commentsDiv = $(".comments")
-  let digit = new RegExp("(\\d)") 
-  this.postID = this.APIURL.split(digit)[1] // the id from the above url
+  this.commentsDiv = $("#comments")
+  this.getCommentsForm = $('.get-comments')
+}
+Comment.getComments = function(e) {
+  e.preventDefault()
+  console.log(this)
+  $.get(this.attributes.action.value, (comments) => {
+    if(comments.length) {
+      Comment.clearComments()
+      Comment.clearButton.toggle()
+      Comment.getCommentsForm.toggle()
+      Comment.renderCommentsDiv(comments)
+    } else {
+      Comment.commentsDiv.text("There are no comments for this post")
+    }
+  })
+}
+Comment.ready = function(){
+  this.renderTemplates()
+  this.renderAttributes()
+  this.setToggles()
+  this.getCommentsForm.on("submit", this.getComments)
 }
 $(document).on("turbolinks:load", function() {
-  Comment.renderTemplates()
-  Comment.renderAttributes()
-  Comment.setToggles()
-  Comment.newCommentButton.on("click", function(){
-    Comment.newCommentForm()
-  })
-  Comment.getCommentsForm.on("submit", function(e){
-    e.preventDefault()
-    Comment.getComments()
-  })
+  Comment.ready()
 })
