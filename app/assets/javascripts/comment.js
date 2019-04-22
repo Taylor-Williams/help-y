@@ -67,16 +67,17 @@ Comment.attachUpdateListener = (updateForm) => {
 }
 Comment.newCommentForm = function() { 
   Comment.commentsDiv.append(new Comment().renderForm())
-  Comment.newForm = $(".new-comment-form") //created above ^
-  Comment.newForm.on("submit", Comment.saveComment)
+  $(".new-comment-form").on("submit", Comment.saveComment) //created above ^
+  $(this).remove()
 }
 Comment.saveComment = function(e) {
   e.preventDefault()
-  let action = Comment.newForm.attr("action")
-  let formData = Comment.newForm.serialize()
+  let action = $(this).attr("action")
+  let formData = $(this).serialize()
   $.post(action, formData, (comment) => {
     Comment.renderCommentsDiv([comment])
   })
+  $(this).remove()
 }
 Comment.renderTemplates = function(){
   this.newCommentButtonTemplate = Handlebars.compile(document.getElementById("new-comment-button-template").innerHTML)
