@@ -63,8 +63,11 @@ Appointment.renderAttributes = function(){
   this.userID = $(".user-link").attr("href").slice(-1)
   this.allAppointments = []
 }
+Appointment.ready = function(){
+  this.renderTemplates()
+  this.renderAttributes()
+  this.getAppointments()
+}
 $(document).on("turbolinks:load", function() {
-  Appointment.renderTemplates()
-  Appointment.renderAttributes()
-  Appointment.getAppointments()
+  Appointment.ready()
 })
