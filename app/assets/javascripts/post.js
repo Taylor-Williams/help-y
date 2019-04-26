@@ -8,12 +8,10 @@ Post.getPostRequest = function(){
   .fail(() => {console.log("there was some error that happened.")})
 }
 Post.renderAllComments = function(post){
-  console.log(post)
   $postCommentsDiv = $(`#${post.id}-comments`)
   $postCommentsDiv.empty()
   if(post.comments.length){
      post.comments.forEach((comment) => {
-      console.log(comment)
       $postCommentsDiv.append(Post.commentTemplate(Object.assign({user:{id: post.user.id, name: post.user.name}}, comment)))
     })
   } else {
