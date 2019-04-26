@@ -39,4 +39,6 @@
 <script id="new-comment-button-template" type="text/x-handlebars-template">
   <input id="new-comment-button" type="submit" value="Add New Comment" />
 </script>
-<%= javascript_include_tag 'comment', 'data-turbolinks-track': 'reload' %>
+<% content_for :js do %>
+  <%= javascript_include_tag 'comment', 'data-turbolinks-track': 'reload' %>
+<% end %>

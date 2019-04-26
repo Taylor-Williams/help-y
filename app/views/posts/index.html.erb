@@ -11,3 +11,6 @@
     </div>
   </div>
 </script>
+<% content_for :js do %>
+  <%= javascript_include_tag 'post', 'data-turbolinks-track': 'reload' %>
+<% end %>
