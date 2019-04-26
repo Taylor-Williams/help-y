@@ -41,7 +41,14 @@ Appointment.renderAppointments = function(){
 }
 Appointment.attachMoreInfoListeners = function(){
   $(".more-info-button").click(function() {
-    Appointment.renderAppointmentById(this.dataset.id)
+    // Appointment.renderAppointmentById(this.dataset.id)
+    $.ajax({
+      dataType: "JSON",
+      url: '/appointments/' + this.dataset.fullid,
+      method: "get"
+    }).success((appointment) => {
+      Appointment.renderAppointmentById(appointment.id)
+    })
   })
 }
 Appointment.renderAppointmentById = function(id){
