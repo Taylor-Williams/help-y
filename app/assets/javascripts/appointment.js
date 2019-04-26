@@ -47,7 +47,10 @@ Appointment.attachMoreInfoListeners = function(){
       url: '/appointments/' + this.dataset.fullid,
       method: "get"
     }).success((appointment) => {
-      Appointment.renderAppointmentById(appointment.id)
+      let appID = Appointment.allAppointments.findIndex((a) => {
+        return a.id === appointment.id
+      })
+      Appointment.renderAppointmentById(appID)
     })
   })
 }
