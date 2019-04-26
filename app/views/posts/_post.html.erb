@@ -1,2 +1,7 @@
 <%= render partial: 'posts/display_info', locals: { post: post } %>
-<p><%= button_to "See post's page", post_path(post), method: :get %></p>
+<p>
+  <%= button_to "See post's page", post_path(post), method: :get %>
+</p>
+<div id="<%=post.id%>-comments" class="post-comments">
+  <input class="get-post-comments" type="submit" value="See post's comments" data-id=<%=post.id%> />
+</div>
