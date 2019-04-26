@@ -18,3 +18,4 @@
 //= require_tree .
 //= stub appointment.js
 //= stub comment.js
+//= stub post.js
