@@ -26,6 +26,10 @@ class PostsController < ApplicationController
       redirect_to home_path, flash:{error: "Not a valid Post"}
     end
     @appointments = @post.appointments
+    respond_to do |format|
+      format.json {render json: @post, status: 200}
+      format.html {render :show, status: 200}
+    end
   end
 
   def update
