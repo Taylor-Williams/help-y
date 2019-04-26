@@ -14,7 +14,7 @@ Post.renderAllComments = function(post){
   if(post.comments.length){
      post.comments.forEach((comment) => {
       console.log(comment)
-      $postCommentsDiv.append(Post.commentTemplate(comment))
+      $postCommentsDiv.append(Post.commentTemplate(Object.assign({user:{id: post.user.id, name: post.user.name}}, comment)))
     })
   } else {
     $postCommentsDiv.html("this post has no comments!")
