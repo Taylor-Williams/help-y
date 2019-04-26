@@ -11,10 +11,14 @@ Post.renderAllComments = function(post){
   console.log(post)
   $postCommentsDiv = $(`#${post.id}-comments`)
   $postCommentsDiv.empty()
-  post.comments.forEach((comment) => {
-    console.log(comment)
-    $postCommentsDiv.append(Post.commentTemplate(comment))
-  })
+  if(post.comments.length){
+     post.comments.forEach((comment) => {
+      console.log(comment)
+      $postCommentsDiv.append(Post.commentTemplate(comment))
+    })
+  } else {
+    $postCommentsDiv.html("this post has no comments!")
+  }
 }
 Post.addCommentsListener = function() {
   $('.get-post-comments').click(this.getPostRequest)
