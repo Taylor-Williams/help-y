@@ -3,3 +3,11 @@
   <%= button_to "Create Post", new_post_path, method: :get %>
 <% end %><br>
 <%= render @posts %>
+<script id="comment-template" type="text/x-handlebars-template">
+  <div class="comment-content">
+    <h4>{{content}}</h4>
+    <div class="comment-data">
+      written by: <a href="/users/{{user.id}}">{{user.name}}</a>
+    </div>
+  </div>
+</script>
